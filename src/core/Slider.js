@@ -1,4 +1,12 @@
+import Store from '../utils/Store';
+
+import type { SliderState } from '../types/SliderState';
+import type { SliderOptions } from '../types/SliderOptions';
+
 export default class Slider {
+
+    // Slider options
+    options = {};
 
     // DOM Elements
     $ref = null;
@@ -6,11 +14,14 @@ export default class Slider {
     $arrowLeft = null;
     $arrowRight = null;
 
-    counter = 1;
+    // Internal state
+    initialState: SliderState = {
+        currentSlide: 0
+    };
 
-    options = {};
+    store: Store = null;
 
-    constructor($ref, options) {
+    constructor($ref: HTMLElement, options: SliderOptions) {
         this.$ref = $ref;
         this.options = {
             ...this.options,
@@ -21,16 +32,39 @@ export default class Slider {
         this.$arrowLeft = $ref.querySelector('.arrow-left');
         this.$arrowRight = $ref.querySelector('.arrow-right');
 
+        const initialState = {
+            ...this.initialState,
+            slideWidth: this.$slides.children[0].getBoundingClientRect().width
+        };
+
+        this.store = new Store(initialState);
+        this.store.listen(this.handleChange);
+
         this.attachEvents();
     }
 
     attachEvents() {
         if (this.$arrowRight) {
             this.$arrowRight.addEventListener('click', () => {
-                this.$slides.style.transform = `translateX(${-100 * this.counter}%)`;
-                this.counter++;
+                this.store.setState(prevState => ({
+                    currentSlide: ++prevState.currentSlide
+                }));
+            });
+        }
+
+        if (this.$arrowLeft) {
+            this.$arrowLeft.addEventListener('click', () => {
+                this.store.setState(prevState => ({
+                    currentSlide: --prevState.currentSlide
+                }));
             });
         }
     }
+
+    handleChange = () => {
+        const { currentSlide, slideWidth } = this.store.getState();
+
+        this.$slides.style.transform = `translateX(${-slideWidth * currentSlide}px)`;
+    };
 
 }

@@ -1,0 +1,14 @@
+[ignore]
+
+[include]
+.*/src/.*
+
+[libs]
+./flow-typed/css-modules/CSSModule.js
+
+[lints]
+
+[options]
+module.name_mapper='.*\(.less\)' -> 'CSSModule'
+module.system=haste
+esproposal.decorators=ignore
