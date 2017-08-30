@@ -1,0 +1,54 @@
+@import '../_vars';
+
+.sm-slider {
+  border: 1px solid red;
+  position: relative;
+  box-sizing: border-box;
+
+  .slides-wrapper {
+    display: flex;
+    overflow: hidden;
+
+    .slides {
+      display: flex;
+      flex: 1;
+      will-change: transform;
+      transform: translateX(0);
+      transition: transform 300ms ease-in-out;
+
+      .slide {
+        flex: 1 0 100%;
+      }
+    }
+  }
+
+  .nav {
+    .arrow-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: @arrow-width;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arrow-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: @arrow-width;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // Configurations
+  &.offset-arrows .slides-wrapper {
+      margin: 0 @arrow-width;
+  }
+
+}
