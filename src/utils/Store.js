@@ -2,7 +2,7 @@
 export default class Store {
 
     state: Object = {};
-    handler: () => void = () => {};
+    handler: (prevState: Object) => void = () => {};
 
     constructor(initialState: Object) {
         this.state = initialState;
@@ -13,6 +13,8 @@ export default class Store {
     }
 
     setState(nextState: (Object|Function)) {
+        const prevState = {...this.state};
+
         switch (typeof nextState) {
             case 'function':
                 this.state = {
@@ -30,7 +32,7 @@ export default class Store {
                 throw new Error();
         }
 
-        this.handler();
+        this.handler(prevState);
     }
 
     listen(handler: () => void) {

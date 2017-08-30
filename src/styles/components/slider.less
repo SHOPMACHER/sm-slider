@@ -3,7 +3,7 @@
 .sm-slider {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
 
   .slides-wrapper {
@@ -13,6 +13,7 @@
 
     .slides {
       display: flex;
+
       will-change: transform;
       transform: translateX(0);
       transition: transform 300ms ease-in-out;
@@ -21,6 +22,14 @@
         flex: 1 0;
       }
     }
+  }
+
+  .arrow-left,
+  .arrow-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
   }
 
   .nav {
