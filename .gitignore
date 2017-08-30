@@ -1,0 +1,9 @@
+# IntelliJ
+.idea
+
+# NodeJS
+node_modules
+
+# OS
+.thumbsdb
+.DS_Store

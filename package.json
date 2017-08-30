@@ -1,0 +1,39 @@
+{
+  "name": "sm-slider",
+  "version": "0.1.0",
+  "description": "Slider library",
+  "main": "lib/sm-slider.js",
+  "jsnext:main": "src/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack/dev.js",
+    "build": "cross-env NODE_ENV=production webpack -p --config webpack/prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.shopmacher.de/~ricoherwig/sm-slider.git"
+  },
+  "keywords": [
+    "slider",
+    "shopmacher",
+    "library"
+  ],
+  "author": "Rico Herwig",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.5",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "flow-bin": "^0.53.1",
+    "html-webpack-plugin": "^2.30.1",
+    "less-loader": "^4.0.5",
+    "postcss-loader": "^2.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-merge": "^4.1.0"
+  }
+}
