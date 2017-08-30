@@ -8,15 +8,16 @@
 
   .slides-wrapper {
     display: flex;
-    justify-content: center;
     overflow: hidden;
 
     .slides {
       display: flex;
 
-      will-change: transform;
-      transform: translateX(0);
-      transition: transform 300ms ease-in-out;
+      &.animatable {
+        will-change: transform;
+        transform: translateX(0);
+        transition: transform 300ms ease-in-out;
+      }
 
       .slide {
         flex: 1 0;

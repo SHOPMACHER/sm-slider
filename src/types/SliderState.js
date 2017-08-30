@@ -1,4 +1,5 @@
 // @flow
 export type SliderState = {
-    currentSlide: number
+    currentSlide: number,
+    slideWidth: number
 };

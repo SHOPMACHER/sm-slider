@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce';
+
 import Store from '../utils/Store';
 import * as errors from '../utils/errors';
 
@@ -17,7 +19,8 @@ export default class Slider {
 
     // Internal state
     initialState: SliderState = {
-        currentSlide: 0
+        currentSlide: 0,
+        slideWidth: 0
     };
 
     store: Store = null;
@@ -28,6 +31,7 @@ export default class Slider {
             ...this.options,
             ...options
         };
+
 
         this.$slides = $ref.querySelector('.slides');
         if (!this.$slides.children.length) {
@@ -53,12 +57,17 @@ export default class Slider {
         this.store = new Store(initialState);
         this.store.listen(this.handleChange);
 
-        window.addEventListener('resize', () => {
-            this.store.setState({
-                slideWidth: this.getInnerWidth()
-            });
-        });
+        this.handleWindowResize();
+        this.handleWindowResize = debounce(this.handleWindowResize, 200);
+
+        window.addEventListener('resize', this.handleWindowResize);
     }
+
+    handleWindowResize = () => {
+        this.store.setState({
+            slideWidth: this.getInnerWidth()
+        });
+    };
 
     getInnerWidth() {
         const sliderWidth = this.$ref.getBoundingClientRect().width;
@@ -84,13 +93,29 @@ export default class Slider {
 
         console.log('width', slideWidth);
 
-        Array.prototype.forEach.call(this.$slides.children, ($slide) => {
-            $slide.style.width = `${slideWidth}px`;
-        });
+        if (slideWidth !== prevState.slideWidth) {
+            Array.prototype.forEach.call(this.$slides.children, ($slide) => {
+                $slide.style.width = `${this.store.getState().slideWidth}px`;
+            });
+
+            this.slide(false);
+        }
 
         if (currentSlide !== prevState.currentSlide) {
-            this.$slides.style.transform = `translateX(${-slideWidth * currentSlide}px)`;
+            this.slide();
         }
+    };
+
+    slide = (animate = true) => {
+        const { currentSlide, slideWidth } = this.store.getState();
+
+        if (animate) {
+            this.$slides.classList.add('animatable');
+        } else {
+            this.$slides.classList.remove('animatable');
+        }
+
+        this.$slides.style.transform = `translateX(${-slideWidth * currentSlide}px)`;
     };
 
 }
