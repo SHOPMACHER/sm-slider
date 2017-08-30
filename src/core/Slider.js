@@ -32,7 +32,6 @@ export default class Slider {
             ...options
         };
 
-
         this.$slides = $ref.querySelector('.slides');
         if (!this.$slides.children.length) {
             throw errors.NO_CHILDREN;
@@ -44,7 +43,6 @@ export default class Slider {
         }
 
         this.$arrowRight = $ref.querySelector('.arrow-right');
-
         if (this.$arrowRight) {
             this.$arrowRight.addEventListener('click', this.handleSlideNext);
         }
@@ -54,21 +52,19 @@ export default class Slider {
             slideWidth: this.getInnerWidth()
         };
 
-        this.store = new Store(initialState);
-        this.store.listen(this.handleChange);
+        this.store = new Store(initialState, this.handleChange);
 
-        this.handleWindowResize();
+        this.resize();
         this.handleWindowResize = debounce(this.handleWindowResize, 200);
 
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    handleWindowResize = () => {
-        this.store.setState({
-            slideWidth: this.getInnerWidth()
-        });
-    };
-
+    /**
+     * Calculates the width a slide should have based on the slider width minus the navigation arrows.
+     *
+     * @returns {number} Inner width of the slider
+     */
     getInnerWidth() {
         const sliderWidth = this.$ref.getBoundingClientRect().width;
         const arrowOffset = this.$arrowLeft.getBoundingClientRect().width + this.$arrowRight.getBoundingClientRect().width;
@@ -88,17 +84,17 @@ export default class Slider {
         }));
     };
 
+    handleWindowResize = () => {
+        this.store.setState({
+            slideWidth: this.getInnerWidth()
+        });
+    };
+
     handleChange = (prevState: SliderState) => {
         const { currentSlide, slideWidth } = this.store.getState();
 
-        console.log('width', slideWidth);
-
         if (slideWidth !== prevState.slideWidth) {
-            Array.prototype.forEach.call(this.$slides.children, ($slide) => {
-                $slide.style.width = `${this.store.getState().slideWidth}px`;
-            });
-
-            this.slide(false);
+            this.resize();
         }
 
         if (currentSlide !== prevState.currentSlide) {
@@ -106,6 +102,22 @@ export default class Slider {
         }
     };
 
+    /**
+     * Reizes every single slide to match the slider width.
+     */
+    resize = () => {
+        Array.prototype.forEach.call(this.$slides.children, ($slide) => {
+            $slide.style.width = `${this.store.getState().slideWidth}px`;
+        });
+
+        this.slide(false);
+    };
+
+    /**
+     * Slides to the current slide from the state.
+     *
+     * @param animate false, if no animation should occur
+     */
     slide = (animate = true) => {
         const { currentSlide, slideWidth } = this.store.getState();
 

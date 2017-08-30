@@ -4,8 +4,9 @@ export default class Store {
     state: Object = {};
     handler: (prevState: Object) => void = () => {};
 
-    constructor(initialState: Object) {
+    constructor(initialState: Object, handler: (prevState: Object) => void) {
         this.state = initialState;
+        this.handler = handler;
     }
 
     getState() {
@@ -33,13 +34,5 @@ export default class Store {
         }
 
         this.handler(prevState);
-    }
-
-    listen(handler: () => void) {
-        this.handler = handler;
-    }
-
-    unlisten() {
-        this.handler = () => {};
     }
 }
