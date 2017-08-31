@@ -60,9 +60,9 @@ export default class Slider {
             totalSlides: $slides.children.length
         };
 
-        this.setupSlides();
-
         this.store = new Store(initialState, this.handleChange);
+
+        this.setupSlides();
 
         resize($slides, this.store, this.options);
 
@@ -81,19 +81,26 @@ export default class Slider {
     }
 
     setupSlides() {
+        Array.prototype.forEach.call(this.$slides.children, ($slide, index) => {
+            $slide.setAttribute('data-sm-slider-index', index);
+        });
+
+        if (!this.options.infinite) {
+            return;
+        }
+
         const $prevSlides: Array<HTMLElement> = [];
         const $nextSlides: Array<HTMLElement> = [];
 
         const lastSlideIndex = this.$slides.children.length - 1;
 
-        for (let i = 0, j = lastSlideIndex; i < this.options.visibleSlides; i++, j--) {
-            $prevSlides.push(this.$slides.children[j].cloneNode(true));
-            $nextSlides.push(this.$slides.children[i].cloneNode(true));
+        for (let i = 0; i < this.options.step; i++) {
+            $prevSlides.push(this.$slides.children[lastSlideIndex - i].cloneNode(true));
         }
 
-        Array.prototype.forEach.call(this.$slides.children, ($slide, index) => {
-            $slide.setAttribute('data-sm-slider-index', index);
-        });
+        for (let i = 0; i < this.options.visibleSlides; i++) {
+            $nextSlides.push(this.$slides.children[i].cloneNode(true));
+        }
 
         Array.prototype.forEach.call($prevSlides, ($slide, index) => {
             $slide.setAttribute('data-sm-slider-index', lastSlideIndex - index);

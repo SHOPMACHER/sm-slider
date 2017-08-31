@@ -5,13 +5,14 @@ import type { SliderOptions } from '../types/SliderOptions';
 
 export default ($slides: HTMLElement, store: Store<SliderState>, options: SliderOptions) => {
     const { currentSlide, totalSlides, innerWidth } = store.getState();
-    const isInfinityWrap = currentSlide === -options.step;
+    const { visibleSlides, step } = options;
 
-    let slideOffset = currentSlide % options.step || options.step;
+    const isInfinityWrap = currentSlide === -step;
+    let slideOffset = currentSlide !== 0 ? (currentSlide % step || step) : step;
 
     if (isInfinityWrap) {
         $slides.classList.remove('animatable');
-        $slides.style.transform = `translateX(${-(innerWidth / options.visibleSlides) * totalSlides}px)`;
+        $slides.style.transform = `translateX(${-(innerWidth / visibleSlides) * totalSlides}px)`;
     }
 
     requestAnimationFrame(() => {

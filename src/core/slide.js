@@ -25,5 +25,5 @@ export default (
     // }));
     const slideWidth = innerWidth / visibleSlides;
 
-    $slides.style.transform = `translateX(${-(slideWidth * currentSlide) - innerWidth}px)`;
+    $slides.style.transform = `translateX(${-(slideWidth * currentSlide) - slideWidth * step}px)`;
 };
