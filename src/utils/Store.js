@@ -1,10 +1,10 @@
 // @flow
-export default class Store {
+export default class Store<T: Object> {
 
-    state: Object = {};
-    handler: (prevState: Object) => void = () => {};
+    state: T;
+    handler: (prevState: T) => void = () => {};
 
-    constructor(initialState: Object, handler: (prevState: Object) => void) {
+    constructor(initialState: T, handler: (prevState: T) => void) {
         this.state = initialState;
         this.handler = handler;
     }
@@ -13,7 +13,7 @@ export default class Store {
         return this.state;
     }
 
-    setState(nextState: (Object|Function)) {
+    setState(nextState: (T|Function)) {
         const prevState = {...this.state};
 
         switch (typeof nextState) {

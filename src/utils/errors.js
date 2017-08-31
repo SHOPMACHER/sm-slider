@@ -9,6 +9,10 @@ const PREFIX = '[smSlider]';
  */
 const createErrorMessage = (message, T = Error) => new T(`${PREFIX} ${message}`);
 
+export const NO_SLIDE_CONTAINER = createErrorMessage(
+    'Slider needs a slide container to be initialized.'
+);
+
 export const NO_CHILDREN = createErrorMessage(
     'Slider needs to contain children to be initialized.'
 );

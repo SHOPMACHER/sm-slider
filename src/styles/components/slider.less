@@ -1,4 +1,4 @@
-@import '../_vars';
+@import '../vars';
 
 .sm-slider {
   position: relative;
@@ -12,6 +12,7 @@
 
   .slides-wrapper {
     display: flex;
+    flex: 1;
     overflow: hidden;
 
     .slides {
@@ -29,41 +30,22 @@
     }
   }
 
-  .arrow-left,
-  .arrow-right {
+  .arrow-left {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 48px;
+    cursor: pointer;
+    background: url('../../assets/arrow.png') center center no-repeat;
   }
 
-  .nav {
-    .arrow-left {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: @arrow-width;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .arrow-right {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: @arrow-width;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .arrow-right {
+    .arrow-left();
+    transform: rotate(180deg);
   }
 
-  // Configurations
-  &.offset-arrows .slides-wrapper {
-      margin: 0 @arrow-width;
+  .disabled {
+    visibility: hidden;
+    cursor: auto;
   }
-
 }

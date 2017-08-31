@@ -1,5 +1,5 @@
 // @flow
-import Slider from './core/Slider';
+import Slider from './Slider';
 
 import './styles/main.less';
 
@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept();
 }
 
-const $sliders:Array<HTMLElement> = document.querySelectorAll('[data-sm-slider]');
+const $sliders:NodeList<HTMLElement> = document.querySelectorAll('[data-sm-slider]');
 let $refs:Array<Slider> = [];
 
 Array.prototype.forEach.call($sliders, ($slider: HTMLElement) => {

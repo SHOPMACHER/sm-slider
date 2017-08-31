@@ -1,4 +1,6 @@
 // @flow
 export type SliderOptions = {
-    infinite?: boolean
+    infinite?: boolean,
+    visibleSlides: number,
+    step: number
 };

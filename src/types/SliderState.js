@@ -1,5 +1,8 @@
 // @flow
 export type SliderState = {
     currentSlide: number,
-    slideWidth: number
+    totalSlides: number,
+    innerWidth: number,
+    isPrevDisabled: boolean,
+    isNextDisabled: boolean
 };

@@ -1,8 +1,11 @@
 const join = require('path').join;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+    context: join(__dirname, '../src'),
     entry: [
-        join(__dirname, '../src/index')
+        './index'
     ],
     output: {
         filename: 'sm-slider.js',
@@ -15,7 +18,20 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             use: 'babel-loader'
+        }, {
+            test: /\.(svg|png)$/,
+            use: {
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
+            }
         }]
     },
-    plugins: []
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'index.html'
+        }),
+        new ExtractTextWebpackPlugin('sm-slider.css')
+    ]
 };
