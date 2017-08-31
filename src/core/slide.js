@@ -23,6 +23,7 @@ export default (
     //     isPrevDisabled: currentSlide === 0,
     //     isNextDisabled: currentSlide + 1 === totalSlides
     // }));
+    const slideWidth = innerWidth / visibleSlides;
 
-    $slides.style.transform = `translateX(${-(innerWidth / visibleSlides) * currentSlide}px)`;
+    $slides.style.transform = `translateX(${-(slideWidth * currentSlide) - innerWidth}px)`;
 };

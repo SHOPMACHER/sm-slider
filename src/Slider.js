@@ -46,40 +46,64 @@ export default class Slider {
             ...options
         };
 
-        this.$slides = $ref.querySelector('.slides');
-        if (!this.$slides) {
-            throw errors.NO_SLIDE_CONTAINER;
-        }
-
-        if (!this.$slides.children.length) {
-            throw errors.NO_CHILDREN;
-        }
-
+        const $slides = this.$slides = $ref.querySelector('.slides');
         this.$arrowLeft = $ref.querySelector('.arrow-left');
         this.$arrowRight = $ref.querySelector('.arrow-right');
+
+        if (!$slides || !$slides.children.length) {
+            throw errors.NO_CHILDREN;
+        }
 
         const initialState = {
             ...this.initialState,
             innerWidth: getInnerWidth(this.$ref, this.$arrowLeft, this.$arrowRight),
-            totalSlides: this.$slides.children.length
+            totalSlides: $slides.children.length
         };
+
+        this.setupSlides();
 
         this.store = new Store(initialState, this.handleChange);
 
-        resize(this.$slides, this.store, this.options);
+        resize($slides, this.store, this.options);
 
         if (this.$arrowLeft) {
-            this.$arrowLeft.addEventListener('click', previous.bind(this, this.$slides, this.store, this.options));
+            this.$arrowLeft.addEventListener('click', previous.bind(this, $slides, this.store, this.options));
         }
 
         if (this.$arrowRight) {
-            this.$arrowRight.addEventListener('click', next.bind(this, this.$slides, this.store, this.options));
+            this.$arrowRight.addEventListener('click', next.bind(this, $slides, this.store, this.options));
         }
 
         window.addEventListener('resize', debounce(
             resizeHandler.bind(this, this.$ref, this.store, this.$arrowLeft, this.$arrowRight),
             200
         ));
+    }
+
+    setupSlides() {
+        const $prevSlides: Array<HTMLElement> = [];
+        const $nextSlides: Array<HTMLElement> = [];
+
+        const lastSlideIndex = this.$slides.children.length - 1;
+
+        for (let i = 0, j = lastSlideIndex; i < this.options.visibleSlides; i++, j--) {
+            $prevSlides.push(this.$slides.children[j].cloneNode(true));
+            $nextSlides.push(this.$slides.children[i].cloneNode(true));
+        }
+
+        Array.prototype.forEach.call(this.$slides.children, ($slide, index) => {
+            $slide.setAttribute('data-sm-slider-index', index);
+        });
+
+        Array.prototype.forEach.call($prevSlides, ($slide, index) => {
+            $slide.setAttribute('data-sm-slider-index', lastSlideIndex - index);
+            this.$slides.insertBefore($slide, this.$slides.firstElementChild);
+        });
+
+        Array.prototype.forEach.call($nextSlides, ($slide, index) => {
+            $slide.setAttribute('data-sm-slider-index', index);
+            this.$slides.appendChild($slide);
+        });
     }
 
     handleChange = (prevState: SliderState) => {
