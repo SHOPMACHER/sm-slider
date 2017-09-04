@@ -1,17 +1,18 @@
 // @flow
 import Store from '../utils/Store';
-import type { SliderOptions } from '../types/SliderOptions';
 import type { SliderState } from '../types/SliderState';
 import slide from './slide';
 
 export default (
+    $ref: HTMLElement,
     $slides: HTMLElement,
-    store: Store<SliderState>,
-    options: SliderOptions
+    store: Store<SliderState>
 ) => {
-    slide($slides, store, options, false);
+    const { innerWidth, visibleSlides } = store.getState();
+
+    slide($ref, $slides, store);
 
     Array.prototype.forEach.call($slides.children, ($slide) => {
-        $slide.style.width = `${store.getState().innerWidth / options.visibleSlides}px`;
+        $slide.style.width = `${innerWidth / visibleSlides}px`;
     });
 };

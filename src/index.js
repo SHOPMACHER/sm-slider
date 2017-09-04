@@ -1,5 +1,6 @@
 // @flow
 import Slider from './Slider';
+import 'custom-event-polyfill';
 
 import './styles/main.less';
 
@@ -15,6 +16,11 @@ const $sliders:NodeList<HTMLElement> = document.querySelectorAll('[data-sm-slide
 let $refs:Array<Slider> = [];
 
 Array.prototype.forEach.call($sliders, ($slider: HTMLElement) => {
-    const options = JSON.parse($slider.getAttribute('data-sm-slider'));
+    const optionString: ?string = $slider.getAttribute('data-sm-slider');
+    if (!optionString) {
+        return;
+    }
+
+    const options = JSON.parse(optionString);
     $refs.push(new Slider($slider, options));
 });

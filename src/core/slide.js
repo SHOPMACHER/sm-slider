@@ -1,29 +1,42 @@
 // @flow
 import Store from '../utils/Store';
-import type { SliderOptions } from '../types/SliderOptions';
 import type { SliderState } from '../types/SliderState';
 
 export default (
+    $ref: HTMLElement,
     $slides: HTMLElement,
-    store: Store<SliderState>,
-    options: SliderOptions,
-    animate: boolean = true
+    store: Store<SliderState>
 ) => {
-    const { currentSlide, innerWidth } = store.getState();
-    const { visibleSlides, step } = options;
+    const { currentSlide, innerWidth, totalSlides, animate, visibleSlides, step } = store.getState();
+
+    let targetSlide = currentSlide;
+    if (currentSlide === totalSlides) {
+        targetSlide = 0;
+    } else if (currentSlide < 0) {
+        targetSlide = totalSlides - step;
+    }
 
     if (animate) {
         $slides.classList.add('animatable');
-    } else {
-        $slides.classList.remove('animatable');
+        $slides.addEventListener('transitionend', () => {
+            $slides.classList.remove('animatable');
+            if (currentSlide === totalSlides || currentSlide < 0) {
+                store.setState(prevState => ({
+                    currentSlide: targetSlide,
+                    animate: false
+                }));
+            }
+        }, { once: true });
+
+        $ref.dispatchEvent(new CustomEvent('slide', {
+            detail: {
+                to: targetSlide,
+                internal: true
+            }
+        }));
     }
 
-    // TODO: reimplement after infinity
-    // store.setState(prevState => ({
-    //     isPrevDisabled: currentSlide === 0,
-    //     isNextDisabled: currentSlide + 1 === totalSlides
-    // }));
     const slideWidth = innerWidth / visibleSlides;
-
     $slides.style.transform = `translateX(${-(slideWidth * currentSlide) - slideWidth * step}px)`;
+
 };

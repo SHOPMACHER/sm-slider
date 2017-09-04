@@ -3,21 +3,13 @@ import Store from '../utils/Store';
 import type { SliderState } from '../types/SliderState';
 import type { SliderOptions } from '../types/SliderOptions';
 
-export default ($slides: HTMLElement, store: Store<SliderState>, options: SliderOptions) => {
-    const { currentSlide, totalSlides, innerWidth } = store.getState();
-    const { visibleSlides, step } = options;
+import slideTo from './slide-to';
 
-    const isInfinityWrap = currentSlide === -step;
+export default ($slides: HTMLElement, store: Store<SliderState>, options: SliderOptions) => {
+    const { currentSlide } = store.getState();
+    const { step } = options;
+
     let slideOffset = currentSlide !== 0 ? (currentSlide % step || step) : step;
 
-    if (isInfinityWrap) {
-        $slides.classList.remove('animatable');
-        $slides.style.transform = `translateX(${-(innerWidth / visibleSlides) * totalSlides}px)`;
-    }
-
-    requestAnimationFrame(() => {
-        store.setState(prevState => ({
-            currentSlide: !isInfinityWrap ? prevState.currentSlide - slideOffset : totalSlides - 2 * slideOffset
-        }));
-    });
+    requestAnimationFrame(() => slideTo(store, currentSlide - slideOffset));
 }
