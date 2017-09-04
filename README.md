@@ -105,7 +105,33 @@ constructor.
 The `options` object that you either pass in via the `data-sm-slider`
 attribute or the contructor can consist of the following options:
 
+| Option        | Description                                                   | Type     | Default Value | Responsive |
+| ------------- | ------------------------------------------------------------- | -------- | -------------:| ----------:|
+| visibleSlides | Number of simultaneosly visible slides                        | number   | 1             |        yes |
+| step          | Number of slides, the slider progresses with one slide action | number   | 1             |        yes |
+| infinite      | True, if the slides should repeat upon reaching the end       | boolean  | false         |            |
+| breakpoints   | See [Responsiveness](#responsiveness)                         | Object   | undefined     |            |
 
+### Responsiveness
+smSlider is built to fit different device sizes using the `breakpoints` option.
+The `breakspoints` option consists of a key/value pair that can override
+all default options that have a `yes` in the field for responsiveness in the
+options table above.
+
+*Example*
+```javascript
+var options = {
+    "visibleSlides": 1,
+    "breakpoints": {
+        "768": {
+            "visibleSlides": 2
+        }
+    }
+};
+```
+
+The above configuration will make the slider display 1 slide by default and 2 slides when exceeding
+the 768px device-width breakpoint (i.e. tablet devices).
 
 ### Events
 
