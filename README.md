@@ -118,6 +118,7 @@ attribute or the contructor can consist of the following options:
 | visibleSlides | Number of simultaneosly visible slides                        | number   | 1             |        yes |
 | step          | Number of slides, the slider progresses with one slide action | number   | 1             |        yes |
 | infinite      | True, if the slides should repeat upon reaching the end       | boolean  | false         |            |
+| autoplay      | Time in milliseconds for the slides to switch automatically   | number   | 0             |            |
 | breakpoints   | See [Responsiveness](#responsiveness)                         | Object   | undefined     |            |
 
 ### Responsiveness
@@ -194,7 +195,7 @@ slider.dispatchEvent(new CustomEvent('slide', {
 - [x] Handle resizes and orientation changes
 - [x] Touch support
 - [x] Custom events
-- [ ] Autoplay
+- [x] Autoplay
 - [ ] Lazy loading of images
 - [ ] Configure animation speed
 - [ ] Provide different timing functions

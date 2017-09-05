@@ -24,7 +24,8 @@ const _ = new Private();
 const _defaultOptions: SliderOptions = {
     infinite: false,
     visibleSlides: 1,
-    step: 1
+    step: 1,
+    autoplay: 0
 };
 
 const _initialState: SliderState = {
@@ -128,6 +129,20 @@ export default class Slider {
             const { internal } = event.detail;
             return internal ? null : this.previousSlide();
         });
+
+        if (_(this).options.autoplay) {
+            _(this).isIntervalPaused = false;
+
+            setInterval(() => !_(this).isIntervalPaused && this.nextSlide(), _(this).options.autoplay);
+
+            _(this).$ref.addEventListener('mouseenter', () => {
+                _(this).isIntervalPaused = true;
+            });
+
+            _(this).$ref.addEventListener('mouseleave', () => {
+                _(this).isIntervalPaused = false;
+            });
+        }
     }
 
     /**

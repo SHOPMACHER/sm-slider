@@ -23,3 +23,5 @@ global.smSlider = (function(context, factory) {
 
     return factory();
 })(window, () => Slider);
+
+Slider.init();
