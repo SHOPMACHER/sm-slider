@@ -1,6 +1,11 @@
 # smSlider
 smSlider is a library for creating responsive and slick sliders
-that serve whatever content you want them to.
+that serve whatever content you want them to. The general philosophy is
+to provide a flexible library in which to user can handle the styling
+mostly by itself. This makes it easy, to customize the slider without
+having to override a lot of library styles.
+Basically the only styling provided is done for
+the sake of animation and responsiveness.
 
 ## Table of Contents
 
@@ -14,7 +19,10 @@ that serve whatever content you want them to.
   * [Global initialization](#globalinitilization)
   * [Single initilization](#singleinitilization)
   * [Options](#options)
+  * [Responsiveness](#responsiveness)
   * [Events](#events)
+    * [Attaching a listener](#attachingalistener)
+    * [Dispatching an event](#dispatchinganevent)
 * [Todo](#todo)
 * [Contributing](#contributing)
 * [License](#license)
@@ -134,10 +142,77 @@ The above configuration will make the slider display 1 slide by default and 2 sl
 the 768px device-width breakpoint (i.e. tablet devices).
 
 ### Events
+smSlider uses custom events to both notify the listener of specific actions,
+as well as listening to specific events itself. The following list shows
+the events that are implemented at the moment.
+
+`Attachable` means, that a listener can be attached to handle the event, whereas
+`Dispatchable` means that the event can be triggered on the slider. `Value` describes
+the contents of `event.detail` either to process in the handler or when the event
+is dispatched.
+
+| Event     | Description                            | Attachable | Dispatchable | Value                                             |
+| --------- | ---------------------------------------| ----------:| ------------:| ------------------------------------------------- |
+| next      | Switches to the next slide             | no         | yes          | undefined                                         |
+| previous  | Switches to the previous slide         | no         | yes          | undefined                                         |
+| slide     | Switches to a specific slide           | yes        | yes          | `to: number` (index of slide that is switched to) |
+
+#### Attaching a listener
+Eventlisteners can be attached in two ways: either using the reference to the class instance of the slider
+or attaching it to the root DOM element that contains the `data-sm-slider`.
+
+**Class instance reference**
+```javascript
+var slider = new smSlider($element, options);
+slider.addEventListener(event, handler, options);
+```
+
+**DOM element reference**
+```javascript
+var $sliderElement = document.querySelector('.sm-slider');
+$sliderElement.addEventListener(event, handler, options);
+```
+
+#### Dispatching an event
+Using the same references as described above, it is possible to dispatch
+events that the slider listens to.
+
+```javascript
+var slider = new smSlider($element, options);
+slider.dispatchEvent(new CustomEvent('slide', {
+    detail: {
+        to: 2 // index to slide to
+    }
+}));
+```
 
 ## Todo
+- [x] Configure number of visible slides
+- [x] Configure step size when sliding
+- [x] Configure infinite sliding
+- [x] Configure responsive breakpoints
+- [x] Handle resizes and orientation changes
+- [x] Touch support
+- [x] Custom events
+- [ ] Autoplay
+- [ ] Lazy loading of images
+- [ ] Configure animation speed
+- [ ] Provide different timing functions
 
 ## Contributing
+To contribute to this project, fork the repository and create
+your feature/hotfix branch with whatever you want to add.
+
+Install the project dependencies using `npm i` and start the
+development server via `npm start`. A webpack-dev-server will now
+listen on port 8080.
+
+When you are finished developing, make sure to add a documented pull
+request.
+
+**Please note:** Pull requests for new features that are not typed via
+flowtype as well as not following the general code style used in this
+project will be rejected.
 
 ## License
 MIT

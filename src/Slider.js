@@ -159,6 +159,27 @@ export default class Slider {
     };
 
     /**
+     * Override of `addEventListener` to make sure, events attached by the user are attached to `$ref`.
+     *
+     * @param event Eventname
+     * @param handler Eventhandler
+     * @param options Eventoptions
+     */
+    addEventListener = (event: string, handler: (event: CustomEvent) => any, options: any) => {
+        _(this).$ref.addEventListener(event, handler, options);
+    };
+
+    /**
+     * Override of `removeEventListener` to make sure, added events are detached the right way.
+     *
+     * @param event Eventname
+     * @param handler Eventhandler
+     */
+    removeEventListener = (event: string, handler: (event: CustomEvent) => any) => {
+        _(this).$ref.removeEventListener(event, handler);
+    };
+
+    /**
      * Handles updates of the data store to make the UI reflect the internal state at all times.
      *
      * @private
