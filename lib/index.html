@@ -16,14 +16,19 @@
             align-items: center;
             justify-content: center;
         }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
     </style>
 
     <title>smSlider | Demo</title>
 <link href="sm-slider.css" rel="stylesheet"></head>
 <body>
 
-<div class="sm-slider" data-sm-slider="{}">
-    <div class="arrow-left">L</div>
+<div class="sm-slider" data-sm-slider='{ "visibleSlides": 1, "step": 1, "infinite": true, "breakpoints": { "768": { "visibleSlides": 2 } } }'>
+    <div class="arrow-left"></div>
     <div class="slides-wrapper">
         <div class="slides">
             <div class="slide">
@@ -58,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="arrow-right">R</div>
+    <div class="arrow-right"></div>
 </div>
 
 <script type="text/javascript" src="sm-slider.js"></script></body>

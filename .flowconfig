@@ -6,6 +6,7 @@
 [libs]
 ./flow-typed/css-modules/CSSModule.js
 ./flow-typed/webpack/Module.js
+./flow-typed/webpack/Define.js
 
 [lints]
 

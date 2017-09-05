@@ -12,15 +12,14 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept();
 }
 
-const $sliders:NodeList<HTMLElement> = document.querySelectorAll('[data-sm-slider]');
-let $refs:Array<Slider> = [];
-
-Array.prototype.forEach.call($sliders, ($slider: HTMLElement) => {
-    const optionString: ?string = $slider.getAttribute('data-sm-slider');
-    if (!optionString) {
-        return;
+global.smSlider = (function(context, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory();
+    } else {
+        context.returnExports = factory();
     }
 
-    const options = JSON.parse(optionString);
-    $refs.push(new Slider($slider, options));
-});
+    return factory();
+})(window, () => Slider);

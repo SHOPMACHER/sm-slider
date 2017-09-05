@@ -207,4 +207,28 @@ export default class Slider {
             slide(_(this).$ref, $slides, store);
         }
     };
+
+    /**
+     * Instantiates all sliders.
+     *
+     * @public
+     * @static
+     * @returns {Array.<Slider>} Array of initialized sliders
+     */
+    static init() {
+        const $sliders:NodeList<HTMLElement> = document.querySelectorAll('[data-sm-slider]');
+        let $refs:Array<Slider> = [];
+
+        Array.prototype.forEach.call($sliders, ($slider: HTMLElement) => {
+            const optionString: ?string = $slider.getAttribute('data-sm-slider');
+            if (!optionString) {
+                return;
+            }
+
+            const options = JSON.parse(optionString);
+            $refs.push(new Slider($slider, options));
+        });
+
+        return $refs;
+    }
 }
