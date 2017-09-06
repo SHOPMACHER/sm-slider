@@ -84,12 +84,12 @@ export default class Slider {
 
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
-            _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$slides, _(this).store, _(this).options));
+            _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
         }
 
         // If the right arrow exists, attach the `next` event to it.
         if (_(this).$arrowRight) {
-            _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$slides, _(this).store, _(this).options));
+            _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
         }
 
         // Resize the slider, whenever the window resizes (i.e. resize, orientation change)
@@ -102,10 +102,10 @@ export default class Slider {
         handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
             switch (direction) {
                 case 'left':
-                    next(_(this).$slides, _(this).store, _(this).options);
+                    next(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
                     break;
                 case 'right':
-                    previous(_(this).$slides, _(this).store, _(this).options);
+                    previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
                     break;
                 default:
                     break;
@@ -120,14 +120,12 @@ export default class Slider {
 
         // Listen for `next` events, triggered from external scripts
         _(this).$ref.addEventListener('next', (event: CustomEvent) => {
-            const { internal } = event.detail;
-            return internal ? null : this.nextSlide();
+            return event.detail && event.detail.internal ? null : this.nextSlide(true);
         });
 
         // Listen for `previous` events, triggered from external scripts
         _(this).$ref.addEventListener('previous', (event: CustomEvent) => {
-            const { internal } = event.detail;
-            return internal ? null : this.previousSlide();
+            return event.detail && event.detail.internal ? null : this.previousSlide(true);
         });
 
         if (_(this).options.autoplay) {
@@ -152,8 +150,8 @@ export default class Slider {
      *
      * @public
      */
-    nextSlide = () => {
-        next(_(this).$slides, _(this).store, _(this).options);
+    nextSlide = (isEventTrigger: boolean = false) => {
+        next(_(this).$ref, _(this).$slides, _(this).store, _(this).options, isEventTrigger);
     };
 
     /**
@@ -161,8 +159,8 @@ export default class Slider {
      *
      * @public
      */
-    previousSlide = () => {
-        previous(_(this).$slides, _(this).store, _(this).options);
+    previousSlide = (isEventTrigger: boolean = false) => {
+        previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, isEventTrigger);
     };
 
     /**
