@@ -16,9 +16,21 @@
   "keywords": [
     "slider",
     "shopmacher",
-    "library"
+    "library",
+    "javascript",
+    "umd"
   ],
-  "author": "Rico Herwig",
+  "author": {
+    "name": "Rico Herwig",
+    "email": "r.herwig@shopmacher.de"
+  },
+  "contributors": [{
+    "name": "Dennis Stockhofe",
+    "email": "d.stockhofe@shopmacher.de"
+  }, {
+    "name": "Lennard Göckener",
+    "email": "l.goeckener@shopmacher.de"
+  }],
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
