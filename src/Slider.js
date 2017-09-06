@@ -143,6 +143,8 @@ export default class Slider {
                 _(this).isIntervalPaused = false;
             });
         }
+
+        _(this).$ref.classList.remove('cloaked');
     }
 
     /**
