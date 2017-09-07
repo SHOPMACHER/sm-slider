@@ -40,9 +40,11 @@ in your project. This makes `smSlider` available in the global scope.
 ### AMD
 Adjust your `require.config.js` to include the following code:
 ```javascript
-paths: {
-    smSlider: 'node_modules/sm-slider/sm-slider'
-}
+packages: [{
+    name: 'smSlider',
+    location: 'node_modules/sm-slider/lib',
+    main: 'sm-slider'
+}]
 ```
 
 Now you can use the slider in your project like this:
