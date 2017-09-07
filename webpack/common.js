@@ -9,6 +9,8 @@ module.exports = {
     ],
     output: {
         filename: 'sm-slider.js',
+        library: 'sm-slider',
+        libraryTarget: 'umd',
         path: join(__dirname, '../lib')
     },
     resolve: {

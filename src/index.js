@@ -12,14 +12,4 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept();
 }
 
-global.smSlider = (function(context, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define([], factory);
-    } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory();
-    } else {
-        context.returnExports = factory();
-    }
-
-    return factory();
-})(window, () => Slider);
+export default Slider;
