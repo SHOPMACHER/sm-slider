@@ -240,8 +240,12 @@ export default class Slider {
                 return;
             }
 
-            const options = JSON.parse(optionString);
-            $refs.push(new Slider($slider, options));
+            try {
+                const options = JSON.parse(optionString);
+                $refs.push(new Slider($slider, options));
+            } catch(err) {
+                throw errors.INVALID_OPTIONS
+            }
         });
 
         return $refs;

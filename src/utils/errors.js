@@ -9,8 +9,8 @@ const PREFIX = '[smSlider]';
  */
 const createErrorMessage = (message, T = Error) => new T(`${PREFIX} ${message}`);
 
-export const NO_SLIDE_CONTAINER = createErrorMessage(
-    'Slider needs a slide container to be initialized.'
+export const INVALID_OPTIONS = createErrorMessage(
+    'Slider could not be initialized with the provided options. Please check that you provided valid JSON.'
 );
 
 export const NO_CHILDREN = createErrorMessage(

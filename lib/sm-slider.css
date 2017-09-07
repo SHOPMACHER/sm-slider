@@ -4,7 +4,7 @@
   align-items: stretch;
   justify-content: center;
 }
-.sm-slider.hidden {
+.sm-slider.cloaked {
   visibility: hidden;
 }
 .sm-slider .slides-wrapper {
