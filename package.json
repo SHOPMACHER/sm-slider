@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@bitbucket.shopmacher.de/~ricoherwig/sm-slider.git"
+    "url": "https://github.com/SHOPMACHER/sm-slider"
   },
   "keywords": [
     "slider",
