@@ -30,18 +30,40 @@
     }
   }
 
-  .arrow-left {
+  .arrow-base {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 48px;
     cursor: pointer;
     background: url('../../assets/arrow.png') center center no-repeat;
+    z-index: 1;
+  }
+
+  .arrow-inset {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+  }
+
+  .arrow-left {
+    .arrow-base();
+
+    &.inset {
+      .arrow-inset();
+      left: 0;
+    }
   }
 
   .arrow-right {
-    .arrow-left();
+    .arrow-base();
     transform: rotate(180deg);
+
+    &.inset {
+      .arrow-inset();
+      right: 0;
+    }
   }
 
   .disabled {

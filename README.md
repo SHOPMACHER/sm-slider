@@ -88,6 +88,39 @@ then initialize the slider via the JavaScript API.
 In this example, you can pass options via the `data-sm-slider` attribute.
 For a list of possible options, refer to [Options](#options).
 
+### Slider arrows
+As you might want to add arrows to the slider for the user to navigate,
+you can include them by altering the above markup as follows:
+
+```html
+<div class="sm-slider" data-sm-slider="{}">
+    <div class="arrow-left"></div>
+    <div class="slides-wrapper">
+        <div class="slides">
+            <div class="slide">
+                Slide 1
+            </div>
+            <div class="slide">
+                Slide 2
+            </div>
+            <div class="slide">
+                Slide 3
+            </div>
+        </div>
+    </div>
+    <div class="arrow-right"></div>
+</div>
+```
+
+The arrow-elements will provide a clickable container that can be used
+to move to the next/previous slides. By default, the arrows are next to
+the slides. If you want the arrows to be on the actual slide, you can
+add the `inset` class to the arrow.
+
+```html
+<div class="arrow-left inset"></div>
+```
+
 ### Global initialization
 You can initialize all sliders on a page, by using
 ```javascript

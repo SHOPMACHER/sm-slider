@@ -23,6 +23,21 @@
 .sm-slider .slides-wrapper .slides .slide {
   flex: 1 0;
 }
+.sm-slider .arrow-base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  cursor: pointer;
+  background: url(assets/arrow.png) center center no-repeat;
+  z-index: 1;
+}
+.sm-slider .arrow-inset {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+}
 .sm-slider .arrow-left {
   display: flex;
   align-items: center;
@@ -30,6 +45,14 @@
   flex: 0 0 48px;
   cursor: pointer;
   background: url(assets/arrow.png) center center no-repeat;
+  z-index: 1;
+}
+.sm-slider .arrow-left.inset {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  left: 0;
 }
 .sm-slider .arrow-right {
   display: flex;
@@ -38,7 +61,15 @@
   flex: 0 0 48px;
   cursor: pointer;
   background: url(assets/arrow.png) center center no-repeat;
+  z-index: 1;
   transform: rotate(180deg);
+}
+.sm-slider .arrow-right.inset {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  right: 0;
 }
 .sm-slider .disabled {
   visibility: hidden;
