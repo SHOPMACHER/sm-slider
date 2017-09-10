@@ -11,6 +11,12 @@
             padding: 0;
         }
 
+        .container {
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+        }
+
         .product {
             display: flex;
             align-items: center;
@@ -27,8 +33,9 @@
 </head>
 <body>
 
+<div class="container">
 <div class="sm-slider cloaked" data-sm-slider='{ "visibleSlides": 1, "step": 1, "infinite": true }'>
-    <div class="arrow-left"></div>
+    <div class="arrow-left inset">L</div>
     <div class="slides-wrapper">
         <div class="slides">
             <div class="slide">
@@ -63,7 +70,9 @@
             </div>
         </div>
     </div>
-    <div class="arrow-right"></div>
+    <div class="arrow-right inset">R</div>
+    <div class="dot-nav"></div>
+</div>
 </div>
 
 </body>

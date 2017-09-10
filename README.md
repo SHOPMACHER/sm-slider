@@ -121,6 +121,32 @@ add the `inset` class to the arrow.
 <div class="arrow-left inset"></div>
 ```
 
+### Navigation dots
+The slider supports a navigation that displays which slide you are
+currently on. To enable it, simply insert an element with the `dot-nav`
+class into your DOM.
+
+```html
+<div class="sm-slider" data-sm-slider="{}">
+    <div class="arrow-left"></div>
+    <div class="slides-wrapper">
+        <div class="slides">
+            <div class="slide">
+                Slide 1
+            </div>
+            <div class="slide">
+                Slide 2
+            </div>
+            <div class="slide">
+                Slide 3
+            </div>
+        </div>
+    </div>
+    <div class="arrow-right"></div>
+    <div class="dot-nav"></div>
+</div>
+```
+
 ### Global initialization
 You can initialize all sliders on a page, by using
 ```javascript

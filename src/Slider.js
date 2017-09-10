@@ -16,7 +16,8 @@ import next from './core/next';
 import slideTo from './core/slide-to';
 import getInnerWidth from './utils/get-inner-width';
 import handleSwipe from './events/swipe-handler';
-import configure from "./core/configure";
+import configure from './core/configure';
+import createNavigation, { updateNavigation } from './core/navigation';
 import getBreakpointOptions from './utils/get-breakpoint-options';
 
 const _ = new Private();
@@ -62,6 +63,7 @@ export default class Slider {
         _(this).$slides = _(this).$ref.querySelector('.slides');
         _(this).$arrowLeft = _(this).$ref.querySelector('.arrow-left');
         _(this).$arrowRight = _(this).$ref.querySelector('.arrow-right');
+        _(this).$navigation = _(this).$ref.querySelector('.dot-nav');
 
         if (!_(this).$slides || !_(this).$slides.children.length) {
             throw errors.NO_CHILDREN;
@@ -81,6 +83,10 @@ export default class Slider {
         _(this).store = new Store(initialState, this.handleChange);
         configure(_(this).$slides, _(this).options);
         resize(_(this).$ref, _(this).$slides, _(this).store);
+
+        if (_(this).$navigation) {
+            _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
+        }
 
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
@@ -220,6 +226,9 @@ export default class Slider {
         // Trigger the sliding animation, if the slide has changed
         if (currentSlide !== prevState.currentSlide || options.infinite) {
             slide(_(this).$ref, $slides, store);
+            if (_(this).$navigationDots) {
+                updateNavigation(_(this).$navigationDots, currentSlide);
+            }
         }
     };
 

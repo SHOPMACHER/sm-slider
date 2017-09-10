@@ -38,6 +38,7 @@
     cursor: pointer;
     background: url('../../assets/arrow.png') center center no-repeat;
     z-index: 1;
+    user-select: none;
   }
 
   .arrow-inset {
@@ -69,5 +70,31 @@
   .disabled {
     visibility: hidden;
     cursor: auto;
+  }
+
+  .dot-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .dot {
+      border: 1px solid black;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+
+      & + .dot {
+        margin-left: 6px;
+      }
+
+      &.active {
+        background-color: #000;
+      }
+    }
   }
 }
