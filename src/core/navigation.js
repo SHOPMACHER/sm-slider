@@ -2,6 +2,8 @@
 import Store from '../utils/Store';
 import type { SliderState } from '../types/SliderState';
 
+import slideTo from './slide-to';
+
 export default ($navigation: HTMLElement, store: Store<SliderState>): Array<HTMLElement> => {
     const { totalSlides, step } = store.getState();
     const dots = Math.ceil(totalSlides / step);
@@ -11,6 +13,7 @@ export default ($navigation: HTMLElement, store: Store<SliderState>): Array<HTML
     for (let i = 0; i < dots; i++) {
         const $dot = document.createElement('div');
         $dot.classList.add('dot');
+        $dot.addEventListener('click', () => slideTo(store, i));
         $dots.push($dot);
         $navigation.appendChild($dot);
     }
