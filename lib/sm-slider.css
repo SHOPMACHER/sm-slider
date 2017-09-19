@@ -93,6 +93,7 @@
   border-radius: 50%;
   width: 12px;
   height: 12px;
+  cursor: pointer;
 }
 .sm-slider .dot-nav .dot + .dot {
   margin-left: 6px;
