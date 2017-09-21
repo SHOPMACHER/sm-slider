@@ -70,7 +70,7 @@ export default class Slider {
         }
 
         const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
-        const { visibleSlides, step } = getBreakpointOptions(_(this).options, innerWidth);
+        const { visibleSlides, step } = getBreakpointOptions(_(this).options, window.innerWidth);
         const initialState = {
             ..._initialState,
             totalSlides: _(this).$slides.children.length,

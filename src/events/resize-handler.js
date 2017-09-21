@@ -16,6 +16,6 @@ export default (
 
     store.setState(prevState => ({
         innerWidth,
-        ...getBreakpointOptions(options, innerWidth)
+        ...getBreakpointOptions(options, window.innerWidth)
     }));
 }

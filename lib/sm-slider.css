@@ -21,7 +21,7 @@
   transition: transform 300ms ease-in-out;
 }
 .sm-slider .slides-wrapper .slides .slide {
-  flex: 1 0;
+  flex: 1 0 auto;
 }
 .sm-slider .arrow-base {
   display: flex;
