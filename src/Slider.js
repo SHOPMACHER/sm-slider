@@ -71,31 +71,43 @@ export default class Slider {
 
         const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
         const { visibleSlides, step } = getBreakpointOptions(_(this).options, window.innerWidth);
+        const totalSlides = _(this).$slides.children.length;
+        const isSlidingDisabled = totalSlides <= visibleSlides;
+
         const initialState = {
             ..._initialState,
-            totalSlides: _(this).$slides.children.length,
+            totalSlides,
             innerWidth,
             visibleSlides,
-            step
+            step,
+            isSlidingDisabled
         };
 
         // Create the store holding the internal state and setup the slider
         _(this).store = new Store(initialState, this.handleChange);
-        configure(_(this).$slides, _(this).options);
+        configure(_(this).$slides, _(this).options, _(this).store);
         resize(_(this).$ref, _(this).$slides, _(this).store);
 
-        if (_(this).$navigation) {
+        if (_(this).$navigation && !isSlidingDisabled) {
             _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
         }
 
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
-            _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+            if (!isSlidingDisabled) {
+                _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+            } else {
+                _(this).$arrowLeft.style.visibility = 'hidden';
+            }
         }
 
         // If the right arrow exists, attach the `next` event to it.
         if (_(this).$arrowRight) {
-            _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+            if (!isSlidingDisabled) {
+                _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+            } else {
+                _(this).$arrowRight.style.visibility = 'hidden';
+            }
         }
 
         // Resize the slider, whenever the window resizes (i.e. resize, orientation change)

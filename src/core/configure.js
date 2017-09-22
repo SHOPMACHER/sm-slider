@@ -1,12 +1,16 @@
 // @flow
+import Store from '../utils/Store';
 import type { SliderOptions } from "../types/SliderOptions";
+import type { SliderState } from '../types/SliderState';
 
-export default ($slides: HTMLElement, options: SliderOptions) => {
+export default ($slides: HTMLElement, options: SliderOptions, store: Store<SliderState>) => {
+    const { step, visibleSlides, isSlidingDisabled } = store.getState();
+
     Array.prototype.forEach.call($slides.children, ($slide, index) => {
         $slide.setAttribute('data-sm-slider-index', index);
     });
 
-    if (!options.infinite) {
+    if (!options.infinite || isSlidingDisabled) {
         return;
     }
 
@@ -15,11 +19,11 @@ export default ($slides: HTMLElement, options: SliderOptions) => {
 
     const lastSlideIndex = $slides.children.length - 1;
 
-    for (let i = 0; i < options.step; i++) {
+    for (let i = 0; i < step; i++) {
         $prevSlides.push($slides.children[lastSlideIndex - i].cloneNode(true));
     }
 
-    for (let i = 0; i < options.visibleSlides; i++) {
+    for (let i = 0; i < visibleSlides; i++) {
         $nextSlides.push($slides.children[i].cloneNode(true));
     }
 

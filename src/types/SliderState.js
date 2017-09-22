@@ -4,5 +4,6 @@ export type SliderState = {
     totalSlides: number,
     innerWidth: number,
     isPrevDisabled: boolean,
-    isNextDisabled: boolean
+    isNextDisabled: boolean,
+    isSlidingDisabled: boolean
 };
