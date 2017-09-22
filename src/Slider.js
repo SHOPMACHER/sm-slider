@@ -117,18 +117,20 @@ export default class Slider {
         ));
 
         // Swipe to a different slide, based on the direction the user swipes in
-        handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
-            switch (direction) {
-                case 'left':
-                    next(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
-                    break;
-                case 'right':
-                    previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
-                    break;
-                default:
-                    break;
-            }
-        });
+        if (!isSlidingDisabled) {
+            handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
+                switch (direction) {
+                    case 'left':
+                        next(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
+                        break;
+                    case 'right':
+                        previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
 
         // Listen for `slide` events, triggered from external scripts
         _(this).$ref.addEventListener('slide', (event: CustomEvent) => {
