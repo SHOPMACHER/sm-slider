@@ -6,8 +6,7 @@ import type { SliderOptions } from '../types/SliderOptions';
 import slideTo from './slide-to';
 
 export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderState>, options: SliderOptions, isEventTrigger: boolean) => {
-    const { currentSlide } = store.getState();
-    const { step } = options;
+    const { currentSlide, step } = store.getState();
 
     let slideOffset = currentSlide !== 0 ? (currentSlide % step || step) : step;
 

@@ -71,6 +71,7 @@ export default class Slider {
 
         const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
         const { visibleSlides, step } = getBreakpointOptions(_(this).options, window.innerWidth);
+
         const totalSlides = _(this).$slides.children.length;
         const isSlidingDisabled = totalSlides <= visibleSlides;
 
@@ -241,7 +242,7 @@ export default class Slider {
         if (currentSlide !== prevState.currentSlide || options.infinite) {
             slide(_(this).$ref, $slides, store);
             if (_(this).$navigationDots) {
-                updateNavigation(_(this).$navigationDots, currentSlide);
+                updateNavigation(_(this).$navigationDots, currentSlide, _(this).store);
             }
         }
     };
