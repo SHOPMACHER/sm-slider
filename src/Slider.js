@@ -34,7 +34,8 @@ const _initialState: SliderState = {
     innerWidth: 0,
     totalSlides: 0,
     isNextDisabled: false,
-    isPrevDisabled: false
+    isPrevDisabled: false,
+    isSlidingDisabled: false
 };
 
 /**
@@ -128,6 +129,7 @@ export default class Slider {
                         previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
                         break;
                     default:
+                        slideTo(_(this).store, _(this).store.getState().currentSlide);
                         break;
                 }
             });

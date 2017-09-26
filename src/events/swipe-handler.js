@@ -33,7 +33,7 @@ export default (
         const touch = event.changedTouches[0];
 
         swipeDirection = 'none';
-        threshold = (store.getState().innerWidth / options.visibleSlides) / 3;
+        threshold = (store.getState().innerWidth / options.visibleSlides) / 5;
         startX = touch.pageX;
         startY = touch.pageY;
 
