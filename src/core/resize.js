@@ -11,7 +11,7 @@ export default (
     const { innerWidth, visibleSlides, isSlidingDisabled } = store.getState();
 
     if (!isSlidingDisabled) {
-        slide($ref, $slides, store);
+        slide($ref, $slides, store, true);
     }
 
     Array.prototype.forEach.call($slides.children, ($slide) => {

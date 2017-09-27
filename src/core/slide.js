@@ -5,7 +5,8 @@ import type { SliderState } from '../types/SliderState';
 export default (
     $ref: HTMLElement,
     $slides: HTMLElement,
-    store: Store<SliderState>
+    store: Store<SliderState>,
+    preventAnimation: boolean = false
 ) => {
     const { currentSlide, innerWidth, totalSlides, animate, visibleSlides, step } = store.getState();
 
@@ -16,7 +17,7 @@ export default (
         targetSlide = totalSlides - step;
     }
 
-    if (animate) {
+    if (animate && !preventAnimation) {
         $slides.classList.add('animatable');
         $slides.addEventListener('transitionend', () => {
             $slides.classList.remove('animatable');

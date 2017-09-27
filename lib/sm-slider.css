@@ -22,6 +22,10 @@
 }
 .sm-slider .slides-wrapper .slides .slide {
   flex: 1 0 auto;
+  pointer-events: none;
+}
+.sm-slider .slides-wrapper .slides .slide a:link {
+  pointer-events: all;
 }
 .sm-slider .arrow-base {
   display: flex;

@@ -6,10 +6,6 @@ import type { SliderState } from '../types/SliderState';
 export default ($slides: HTMLElement, options: SliderOptions, store: Store<SliderState>) => {
     const { step, visibleSlides, isSlidingDisabled } = store.getState();
 
-    Array.prototype.forEach.call($slides.children, ($slide, index) => {
-        $slide.setAttribute('data-sm-slider-index', index);
-    });
-
     if (!options.infinite || isSlidingDisabled) {
         return;
     }
@@ -29,11 +25,13 @@ export default ($slides: HTMLElement, options: SliderOptions, store: Store<Slide
 
     Array.prototype.forEach.call($prevSlides, ($slide, index) => {
         $slide.setAttribute('data-sm-slider-index', lastSlideIndex - index);
+        $slide.setAttribute('data-sm-slider-duplicate', true);
         $slides.insertBefore($slide, $slides.firstElementChild);
     });
 
     Array.prototype.forEach.call($nextSlides, ($slide, index) => {
         $slide.setAttribute('data-sm-slider-index', index);
+        $slide.setAttribute('data-sm-slider-duplicate', true);
         $slides.appendChild($slide);
     });
 };

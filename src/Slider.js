@@ -16,6 +16,7 @@ import next from './core/next';
 import slideTo from './core/slide-to';
 import getInnerWidth from './utils/get-inner-width';
 import handleSwipe from './events/swipe-handler';
+import clean from './core/clean';
 import configure from './core/configure';
 import createNavigation, { updateNavigation } from './core/navigation';
 import getBreakpointOptions from './utils/get-breakpoint-options';
@@ -33,6 +34,8 @@ const _initialState: SliderState = {
     currentSlide: 0,
     innerWidth: 0,
     totalSlides: 0,
+    step: 1,
+    visibleSlides: 1,
     isNextDisabled: false,
     isPrevDisabled: false,
     isSlidingDisabled: false
@@ -69,6 +72,8 @@ export default class Slider {
         if (!_(this).$slides || !_(this).$slides.children.length) {
             throw errors.NO_CHILDREN;
         }
+
+        clean(_(this).$slides);
 
         const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
         const { visibleSlides, step } = getBreakpointOptions(_(this).options, window.innerWidth);
@@ -232,12 +237,20 @@ export default class Slider {
 
         const {
             currentSlide,
-            innerWidth
+            innerWidth,
+            visibleSlides,
+            step
         } = store.getState();
 
         // Resize the slider, if the innerWidth has changed
         if (innerWidth !== prevState.innerWidth) {
             resize(_(this).$ref, $slides, store);
+        }
+
+        // Reconfigure slider, if visibleSlides or step changes due to breakpoint hit
+        if (visibleSlides !== prevState.visibleSlides || step !== prevState.step) {
+            clean($slides);
+            configure($slides, options, store);
         }
 
         // Trigger the sliding animation, if the slide has changed
@@ -266,12 +279,15 @@ export default class Slider {
                 return;
             }
 
+            let options: SliderOptions;
+
             try {
-                const options = JSON.parse(optionString);
-                $refs.push(new Slider($slider, options));
+                options = JSON.parse(optionString);
             } catch(err) {
                 throw errors.INVALID_OPTIONS
             }
+
+            $refs.push(new Slider($slider, options));
         });
 
         return $refs;

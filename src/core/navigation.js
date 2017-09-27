@@ -2,13 +2,15 @@
 import Store from '../utils/Store';
 import type { SliderState } from '../types/SliderState';
 
+import clearChildren from '../utils/clear-children';
 import slideTo from './slide-to';
 
 export default ($navigation: HTMLElement, store: Store<SliderState>): Array<HTMLElement> => {
     const { totalSlides, step } = store.getState();
     const dots = Math.ceil(totalSlides / step);
-
     const $dots = [];
+
+    clearChildren($navigation);
 
     for (let i = 0; i < dots; i++) {
         const $dot = document.createElement('div');
