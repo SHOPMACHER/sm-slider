@@ -95,24 +95,23 @@ export default class Slider {
         configure(_(this).$slides, _(this).options, _(this).store);
         resize(_(this).$ref, _(this).$slides, _(this).store);
 
-        if (_(this).$navigation && !isSlidingDisabled) {
-            _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
-        }
+        // Initialize the dot navigation
+        _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
 
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
-            if (!isSlidingDisabled) {
-                _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
-            } else {
+            _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+
+            if (isSlidingDisabled) {
                 _(this).$arrowLeft.style.visibility = 'hidden';
             }
         }
 
         // If the right arrow exists, attach the `next` event to it.
         if (_(this).$arrowRight) {
-            if (!isSlidingDisabled) {
-                _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
-            } else {
+            _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
+
+            if (isSlidingDisabled) {
                 _(this).$arrowRight.style.visibility = 'hidden';
             }
         }
@@ -239,7 +238,8 @@ export default class Slider {
             currentSlide,
             innerWidth,
             visibleSlides,
-            step
+            step,
+            isSlidingDisabled
         } = store.getState();
 
         // Resize the slider, if the innerWidth has changed
@@ -251,6 +251,18 @@ export default class Slider {
         if (visibleSlides !== prevState.visibleSlides || step !== prevState.step) {
             clean($slides);
             configure($slides, options, store);
+            _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
+        }
+
+        // Toggle arrows, when sliding enables or disables
+        if (isSlidingDisabled !== prevState.isSlidingDisabled) {
+            if (_(this).$arrowLeft) {
+                _(this).$arrowLeft.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
+            }
+
+            if (_(this).$arrowRight) {
+                _(this).$arrowRight.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
+            }
         }
 
         // Trigger the sliding animation, if the slide has changed

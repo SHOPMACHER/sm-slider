@@ -24,7 +24,7 @@
   flex: 1 0 auto;
   pointer-events: none;
 }
-.sm-slider .slides-wrapper .slides .slide a:link {
+.sm-slider .slides-wrapper .slides .slide * {
   pointer-events: all;
 }
 .sm-slider .arrow-base {

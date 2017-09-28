@@ -13,9 +13,13 @@ export default (
     $arrowRight: ?HTMLElement
 ) => {
     const innerWidth = getInnerWidth($slider, $arrowLeft, $arrowRight);
+    const { totalSlides } = store.getState();
+    const { visibleSlides, step } = getBreakpointOptions(options, window.innerWidth);
 
     store.setState(prevState => ({
         innerWidth,
-        ...getBreakpointOptions(options, window.innerWidth)
+        visibleSlides,
+        step,
+        isSlidingDisabled: totalSlides < visibleSlides
     }));
 }

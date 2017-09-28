@@ -1,6 +1,6 @@
 {
   "name": "sm-slider",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A minimalistic, configurable, responsive slider library.",
   "main": "lib/sm-slider.js",
   "jsnext:main": "lib/sm-slider.js",
