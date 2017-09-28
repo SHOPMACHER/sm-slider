@@ -8,6 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack/dev.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack/prod.js",
+    "test": "cross-env BABEL_ENV=test jest",
     "prepublish": "npm run build"
   },
   "jest": {
@@ -60,6 +61,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
     "js-base64": "^2.1.9",
+    "jsdom": "^11.2.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "postcss": "^6.0.11",
