@@ -16,3 +16,7 @@ export const INVALID_OPTIONS = createErrorMessage(
 export const NO_CHILDREN = createErrorMessage(
     'Slider needs to contain children to be initialized.'
 );
+
+export const INVALID_OFFSET_LEFT = createErrorMessage(
+    'The property `offsetLeft` has an invalid value. Please only provide values >= 0 and <= 1.'
+);

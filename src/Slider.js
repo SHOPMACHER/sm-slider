@@ -27,6 +27,7 @@ const _defaultOptions: SliderOptions = {
     infinite: false,
     visibleSlides: 1,
     step: 1,
+    offsetLeft: 0,
     autoplay: 0
 };
 
@@ -36,6 +37,7 @@ const _initialState: SliderState = {
     totalSlides: 0,
     step: 1,
     visibleSlides: 1,
+    offsetLeft: 0,
     isNextDisabled: false,
     isPrevDisabled: false,
     isSlidingDisabled: false
@@ -76,7 +78,11 @@ export default class Slider {
         clean(_(this).$slides);
 
         const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
-        const { visibleSlides, step } = getBreakpointOptions(_(this).options, window.innerWidth);
+        const { visibleSlides, step, offsetLeft } = getBreakpointOptions(_(this).options, window.innerWidth);
+
+        if (offsetLeft < 0 || offsetLeft > 1) {
+            throw errors.INVALID_OFFSET_LEFT;
+        }
 
         const totalSlides = _(this).$slides.children.length;
         const isSlidingDisabled = totalSlides <= visibleSlides;
@@ -87,6 +93,7 @@ export default class Slider {
             innerWidth,
             visibleSlides,
             step,
+            offsetLeft,
             isSlidingDisabled
         };
 

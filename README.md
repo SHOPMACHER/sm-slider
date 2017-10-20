@@ -180,7 +180,8 @@ attribute or the contructor can consist of the following options:
 | step          | Number of slides, the slider progresses with one slide action | number   | 1             |        yes |
 | infinite      | True, if the slides should repeat upon reaching the end       | boolean  | false         |            |
 | autoplay      | Time in milliseconds for the slides to switch automatically   | number   | 0             |            |
-| breakpoints   | See [Responsiveness](#responsiveness)                         | Object   | undefined     |            |
+| breakpoints   | See [Responsiveness](#responsiveness)                     | Object   | undefined     |            |
+| offsetLet     | Value between 0 and 1 that controls, how much of the last slide is visible on the left. | number | 0 | yes |
 
 ### Responsiveness
 smSlider is built to fit different device sizes using the `breakpoints` option.

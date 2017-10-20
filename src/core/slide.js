@@ -8,7 +8,15 @@ export default (
     store: Store<SliderState>,
     preventAnimation: boolean = false
 ) => {
-    const { currentSlide, innerWidth, totalSlides, animate, visibleSlides, step } = store.getState();
+    const {
+        currentSlide,
+        innerWidth,
+        totalSlides,
+        animate,
+        visibleSlides,
+        offsetLeft,
+        step
+    } = store.getState();
 
     let targetSlide = currentSlide;
     if (currentSlide === totalSlides) {
@@ -39,6 +47,6 @@ export default (
 
     const slideWidth = innerWidth / visibleSlides;
     $slides.style.transform = totalSlides > visibleSlides
-        ? `translateX(${-(slideWidth * currentSlide) - slideWidth * step}px)`
+        ? `translateX(${(-(slideWidth * currentSlide) - slideWidth * step) + (offsetLeft * slideWidth)}px)`
         : `translateX(0)`;
 };
