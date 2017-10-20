@@ -1,4 +1,5 @@
 import Slider from '../src/Slider';
+import jsdom from 'jsdom-global';
 import {
     total4Visible2,
     total4Visible4,
@@ -6,6 +7,8 @@ import {
 } from '../__mocks__/dom';
 
 describe('Initialization', () => {
+
+
 
     test('init with 4 total and 2 visible', () => {
         const document = total4Visible2();
