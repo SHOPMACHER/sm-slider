@@ -28,8 +28,6 @@ export default (
     const restraint = 100; // maximum distance allowed at the same time in perpendicular direction
 
     $touchTarget.addEventListener('touchstart', (event: TouchEvent) => {
-        //event.preventDefault();
-
         const touch = event.changedTouches[0];
 
         swipeDirection = 'none';
@@ -45,7 +43,6 @@ export default (
     }, { passive: true });
 
     $touchTarget.addEventListener('touchmove', (event: TouchEvent) => {
-        //event.preventDefault();
         const touch = event.changedTouches[0];
 
         distX = touch.pageX - startX;
@@ -57,8 +54,6 @@ export default (
     }, { passive: true });
 
     $touchTarget.addEventListener('touchend', (event: TouchEvent) => {
-        //event.preventDefault();
-
         if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
             swipeDirection = (distX < 0) ? 'left' : 'right';
         } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
@@ -67,6 +62,9 @@ export default (
             $touchTarget.classList.add('animatable');
             $touchTarget.style.transform = `translateX(${translate}px)`;
         }
+
+        distX = 0;
+        distY = 0;
 
         handleSwipe(swipeDirection);
     }, { passive: true });
