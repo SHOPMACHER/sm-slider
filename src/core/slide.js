@@ -1,6 +1,24 @@
 // @flow
 import Store from '../utils/Store';
 import type { SliderState } from '../types/SliderState';
+import once from '../utils/event-listener-once';
+
+function transitionEnd(
+    store: Store<SliderState>,
+    $slides: HTMLElement,
+    currentSlide: number,
+    totalSlides: number,
+    targetSlide: number
+) {
+    $slides.classList.remove('animatable');
+
+    if (currentSlide === totalSlides || currentSlide < 0) {
+        store.setState(prevState => ({
+            currentSlide: targetSlide,
+            animate: false
+        }));
+    }
+}
 
 export default (
     $ref: HTMLElement,
@@ -27,15 +45,7 @@ export default (
 
     if (animate && !preventAnimation) {
         $slides.classList.add('animatable');
-        $slides.addEventListener('transitionend', () => {
-            $slides.classList.remove('animatable');
-            if (currentSlide === totalSlides || currentSlide < 0) {
-                store.setState(prevState => ({
-                    currentSlide: targetSlide,
-                    animate: false
-                }));
-            }
-        }, { once: true });
+        once($slides, 'transitionend', transitionEnd.bind(undefined, store, $slides, currentSlide, totalSlides, targetSlide));
 
         $ref.dispatchEvent(new CustomEvent('slide', {
             detail: {
