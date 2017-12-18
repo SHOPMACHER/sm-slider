@@ -14,7 +14,7 @@ import resize from './core/resize';
 import previous from './core/previous';
 import next from './core/next';
 import slideTo from './core/slide-to';
-import getInnerWidth from './utils/get-inner-width';
+import getInnerSize from './utils/get-inner-size';
 import handleSwipe from './events/swipe-handler';
 import clean from './core/clean';
 import configure from './core/configure';
@@ -33,14 +33,15 @@ const _defaultOptions: SliderOptions = {
 
 const _initialState: SliderState = {
     currentSlide: 0,
-    innerWidth: 0,
+    innerSize: 0,
     totalSlides: 0,
     step: 1,
     visibleSlides: 1,
     offsetLeft: 0,
     isNextDisabled: false,
     isPrevDisabled: false,
-    isSlidingDisabled: false
+    isSlidingDisabled: false,
+    isVertical: false
 };
 
 /**
@@ -77,7 +78,8 @@ export default class Slider {
 
         clean(_(this).$slides);
 
-        const innerWidth = getInnerWidth(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight);
+        const isVertical = _(this).$ref.classList.contains('sm-slider--vertical');
+        const innerSize = getInnerSize(_(this).$ref, _(this).$arrowLeft, _(this).$arrowRight, isVertical);
         const { visibleSlides, step, offsetLeft } = getBreakpointOptions(_(this).options, window.innerWidth);
 
         if (offsetLeft < 0 || offsetLeft > 1) {
@@ -90,11 +92,12 @@ export default class Slider {
         const initialState = {
             ..._initialState,
             totalSlides,
-            innerWidth,
+            innerSize,
             visibleSlides,
             step,
             offsetLeft,
-            isSlidingDisabled
+            isSlidingDisabled,
+            isVertical
         };
 
         // Create the store holding the internal state and setup the slider
@@ -243,14 +246,14 @@ export default class Slider {
 
         const {
             currentSlide,
-            innerWidth,
+            innerSize,
             visibleSlides,
             step,
             isSlidingDisabled
         } = store.getState();
 
-        // Resize the slider, if the innerWidth has changed
-        if (innerWidth !== prevState.innerWidth) {
+        // Resize the slider, if the innerSize has changed
+        if (innerSize !== prevState.innerSize) {
             resize(_(this).$ref, $slides, store);
         }
 

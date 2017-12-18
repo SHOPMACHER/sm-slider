@@ -20,7 +20,7 @@
 
       &.animatable {
         will-change: transform;
-        transform: translateX(0);
+        transform: translate(0, 0);
         transition: transform 300ms ease-in-out;
       }
 
@@ -100,6 +100,49 @@
 
       &.active {
         background-color: #000;
+      }
+    }
+  }
+
+  &--vertical {
+    height: 100%;
+
+    .slides {
+      flex-direction: column;
+
+      .slide {
+        display: flex;
+        min-height: 0;
+        min-width: 0;
+      }
+    }
+
+    .arrow-inset {
+      position: absolute;
+      top: initial;
+      bottom: initial;
+      left: 0;
+      right: 0;
+      height: 48px;
+      width: auto;
+    }
+
+    .arrow-left {
+      .arrow-base();
+
+      &.inset {
+        .arrow-inset();
+        top: 0;
+      }
+    }
+
+    .arrow-right {
+      .arrow-base();
+      transform: rotate(180deg);
+
+      &.inset {
+        .arrow-inset();
+        bottom: 0;
       }
     }
   }

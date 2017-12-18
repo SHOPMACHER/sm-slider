@@ -2,11 +2,12 @@
 export type SliderState = {
     currentSlide: number,
     totalSlides: number,
-    innerWidth: number,
+    innerSize: number,
     visibleSlides: number,
     step: number,
     offsetLeft: number,
     isPrevDisabled: boolean,
     isNextDisabled: boolean,
-    isSlidingDisabled: boolean
+    isSlidingDisabled: boolean,
+    isVertical: boolean
 };

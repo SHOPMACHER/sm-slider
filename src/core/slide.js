@@ -28,12 +28,13 @@ export default (
 ) => {
     const {
         currentSlide,
-        innerWidth,
+        innerSize,
         totalSlides,
         animate,
         visibleSlides,
         offsetLeft,
-        step
+        step,
+        isVertical
     } = store.getState();
 
     let targetSlide = currentSlide;
@@ -55,8 +56,10 @@ export default (
         }));
     }
 
-    const slideWidth = innerWidth / visibleSlides;
+    const translateProp = isVertical ? 'translateY' : 'translateX';
+
+    const sliderSize = innerSize / visibleSlides;
     $slides.style.transform = totalSlides > visibleSlides
-        ? `translateX(${(-(slideWidth * currentSlide) - slideWidth * step) + (offsetLeft * slideWidth)}px)`
-        : `translateX(0)`;
+        ? `${translateProp}(${(-(sliderSize * currentSlide) - sliderSize * step) + (offsetLeft * sliderSize)}px)`
+        : `${translateProp}(0)`;
 };

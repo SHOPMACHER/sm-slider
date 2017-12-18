@@ -20,6 +20,7 @@ the sake of animation and responsiveness.
   * [Single initilization](#singleinitilization)
   * [Options](#options)
   * [Responsiveness](#responsiveness)
+  * [Vertical slides](#vertical-slides)
   * [Events](#events)
     * [Attaching a listener](#attachingalistener)
     * [Dispatching an event](#dispatchinganevent)
@@ -204,6 +205,16 @@ var options = {
 The above configuration will make the slider display 1 slide by default and 2 slides when exceeding
 the 768px device-width breakpoint (i.e. tablet devices).
 
+### Vertical slides
+smSlider also supports vertical alignment of slides, instead of the usual horizonal one.
+In order to transform the slider into a vertical one, the element with the `sm-slider` class
+needs to be assigned the `sm-slider--vertical` class as well.
+
+Please note that for best results, the following cases should apply:
+ * The parent of `sm-slider` has either display flex, inline or inline-block
+ * The content of the `slide` class has a fixed height
+   * The dynamic height calculation is going to be adressed in the upcoming releases!
+
 ### Events
 smSlider uses custom events to both notify the listener of specific actions,
 as well as listening to specific events itself. The following list shows
@@ -258,6 +269,8 @@ slider.dispatchEvent(new CustomEvent('slide', {
 - [x] Touch support
 - [x] Custom events
 - [x] Autoplay
+- [x] Implement vertical slides support
+- [ ] Fix automatic height calculation on vertical slides
 - [ ] Lazy loading of images
 - [ ] Configure animation speed
 - [ ] Provide different timing functions
