@@ -13,21 +13,24 @@
 
         .container {
             border: 1px solid black;
-        }
-
-        @media (min-width: 500px) {
-
+            height: 600px;
+            display: inline-block;
         }
 
         .product {
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 200px;
         }
 
-        .product img {
+        .sm-slider:not(.sm-slider--vertical) .product img {
             width: 100%;
-            height: auto;
+            flex: 1;
+        }
+
+        .sm-slider.sm-slider--vertical .product img {
+            height: 100%;
         }
     </style>
 
@@ -36,8 +39,8 @@
 <body>
 
 <div class="container">
-    <div class="sm-slider cloaked"
-         data-sm-slider='{ "visibleSlides": 1, "step": 1, "infinite": true, "breakpoints": { "768": { "visibleSlides": 4, "step": 1, "offsetLeft": 0.5 } } }'>
+    <div class="sm-slider sm-slider--vertical"
+         data-sm-slider='{ "visibleSlides": 3, "step": 1, "infinite": true }'>
         <div class="arrow-left inset">L</div>
         <div class="slides-wrapper">
             <div class="slides">
@@ -74,7 +77,7 @@
             </div>
         </div>
         <div class="arrow-right inset">R</div>
-        <div class="dot-nav"></div>
+        <!--<div class="dot-nav"></div>-->
     </div>
 </div>
 

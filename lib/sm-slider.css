@@ -17,7 +17,7 @@
 }
 .sm-slider .slides-wrapper .slides.animatable {
   will-change: transform;
-  transform: translateX(0);
+  transform: translate(0, 0);
   transition: transform 300ms ease-in-out;
 }
 .sm-slider .slides-wrapper .slides .slide {
@@ -104,6 +104,67 @@
 }
 .sm-slider .dot-nav .dot.active {
   background-color: #000;
+}
+.sm-slider--vertical {
+  height: 100%;
+}
+.sm-slider--vertical .slides {
+  flex-direction: column;
+}
+.sm-slider--vertical .slides .slide {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+}
+.sm-slider--vertical .arrow-inset {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  height: 48px;
+  width: auto;
+}
+.sm-slider--vertical .arrow-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  cursor: pointer;
+  background: url(assets/arrow.png) center center no-repeat;
+  z-index: 1;
+  user-select: none;
+}
+.sm-slider--vertical .arrow-left.inset {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  height: 48px;
+  width: auto;
+  top: 0;
+}
+.sm-slider--vertical .arrow-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  cursor: pointer;
+  background: url(assets/arrow.png) center center no-repeat;
+  z-index: 1;
+  user-select: none;
+  transform: rotate(180deg);
+}
+.sm-slider--vertical .arrow-right.inset {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  height: 48px;
+  width: auto;
+  bottom: 0;
 }
 
 /*# sourceMappingURL=sm-slider.css.map*/
