@@ -107,6 +107,7 @@
 }
 .sm-slider--vertical {
   height: 100%;
+  flex-direction: column;
 }
 .sm-slider--vertical .slides {
   flex-direction: column;
