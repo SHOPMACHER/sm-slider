@@ -8,7 +8,7 @@ export default ($slides: HTMLElement) => {
         if ($slides.children[i].hasAttribute('data-sm-slider-duplicate')) {
             $slides.removeChild($slides.children[i]);
         } else {
-            $slides.children[i].setAttribute('data-sm-slider-index', (i - 1).toString());
+            $slides.children[i].setAttribute('data-sm-slider-index', i.toString());
         }
     }
 };
