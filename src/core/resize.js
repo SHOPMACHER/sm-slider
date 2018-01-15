@@ -8,12 +8,10 @@ export default (
     $slides: HTMLElement,
     store: Store<SliderState>
 ) => {
-    const { innerSize, visibleSlides, isSlidingDisabled, isVertical, isInfinite } = store.getState();
+    const { innerSize, visibleSlides, isVertical } = store.getState();
     const sizeAttribute = isVertical ? 'height' : 'width';
 
-    if (!isSlidingDisabled) {
-        slide($ref, $slides, store, true);
-    }
+    slide($ref, $slides, store, true);
 
     Array.prototype.forEach.call($slides.children, ($slide) => {
         $slide.style[sizeAttribute] = `${innerSize / visibleSlides}px`;

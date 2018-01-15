@@ -8,7 +8,6 @@ export type SliderState = {
     offsetLeft: number,
     isPrevDisabled: boolean,
     isNextDisabled: boolean,
-    isSlidingDisabled: boolean,
     isVertical: boolean,
     isInfinite: boolean
 };

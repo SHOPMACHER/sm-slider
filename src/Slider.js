@@ -268,17 +268,6 @@ export default class Slider {
             _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
         }
 
-        // Toggle arrows, when sliding enables or disables
-        // if (isSlidingDisabled !== prevState.isSlidingDisabled) {
-        //     if (_(this).$arrowLeft) {
-        //         _(this).$arrowLeft.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
-        //     }
-        //
-        //     if (_(this).$arrowRight) {
-        //         _(this).$arrowRight.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
-        //     }
-        // }
-
         if (_(this).$arrowLeft && isPrevDisabled !== prevState.isPrevDisabled) {
             _(this).$arrowLeft.style.visibility = isPrevDisabled ? 'hidden' : 'visible';
         }

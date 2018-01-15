@@ -4,9 +4,9 @@ import type { SliderOptions } from "../types/SliderOptions";
 import type { SliderState } from '../types/SliderState';
 
 export default ($slides: HTMLElement, options: SliderOptions, store: Store<SliderState>) => {
-    const { step, visibleSlides, isSlidingDisabled } = store.getState();
+    const { step, visibleSlides } = store.getState();
 
-    if (!options.infinite || isSlidingDisabled) {
+    if (!options.infinite) {
         return;
     }
 

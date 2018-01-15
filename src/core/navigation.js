@@ -6,9 +6,9 @@ import clearChildren from '../utils/clear-children';
 import slideTo from './slide-to';
 
 export default ($navigation: HTMLElement, store: Store<SliderState>): ?Array<HTMLElement> => {
-    const { totalSlides, step, isSlidingDisabled } = store.getState();
+    const { totalSlides, step } = store.getState();
 
-    if (!clearChildren($navigation) || isSlidingDisabled) {
+    if (!clearChildren($navigation)) {
         return null;
     }
 

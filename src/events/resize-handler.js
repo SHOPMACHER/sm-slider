@@ -16,10 +16,13 @@ export default (
     const { visibleSlides, step } = getBreakpointOptions(options, window.innerWidth);
     const innerSize = getInnerSize($slider, $arrowLeft, $arrowRight, isVertical);
 
+    const isSlidingDisabled = totalSlides < visibleSlides;
+
     store.setState(prevState => ({
         innerSize,
         visibleSlides,
         step,
-        isSlidingDisabled: totalSlides < visibleSlides
+        isNextDisabled: isSlidingDisabled,
+        isPrevDisabled: isSlidingDisabled
     }));
 }
