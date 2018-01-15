@@ -9,5 +9,6 @@ export type SliderState = {
     isPrevDisabled: boolean,
     isNextDisabled: boolean,
     isSlidingDisabled: boolean,
-    isVertical: boolean
+    isVertical: boolean,
+    isInfinite: boolean
 };

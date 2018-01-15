@@ -8,7 +8,7 @@ export default (
     $slides: HTMLElement,
     store: Store<SliderState>
 ) => {
-    const { innerSize, visibleSlides, isSlidingDisabled, isVertical } = store.getState();
+    const { innerSize, visibleSlides, isSlidingDisabled, isVertical, isInfinite } = store.getState();
     const sizeAttribute = isVertical ? 'height' : 'width';
 
     if (!isSlidingDisabled) {

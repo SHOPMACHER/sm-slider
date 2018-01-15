@@ -109,11 +109,12 @@
   height: 100%;
   flex-direction: column;
 }
-.sm-slider--vertical .slides {
+.sm-slider--vertical .slides-wrapper .slides {
   flex-direction: column;
 }
-.sm-slider--vertical .slides .slide {
+.sm-slider--vertical .slides-wrapper .slides .slide {
   display: flex;
+  flex: 0 0 auto;
   min-height: 0;
   min-width: 0;
 }

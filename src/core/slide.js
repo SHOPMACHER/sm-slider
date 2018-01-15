@@ -20,6 +20,27 @@ function transitionEnd(
     }
 }
 
+function getTransformPixels(
+    currentSlide: number,
+    step: number,
+    visibleSlides: number,
+    totalSlides: number,
+    offset: number,
+    innerSize: number,
+    isInifinite: boolean
+) {
+    if (totalSlides <= visibleSlides) {
+        return 0;
+    }
+
+    const slideSize = innerSize / visibleSlides;
+    const indentOffset = offset * slideSize;
+    const stepOffset = isInifinite ? slideSize * step : 0;
+    const currentSlideOffset = slideSize * currentSlide;
+
+    return -(currentSlideOffset + stepOffset) + indentOffset;
+}
+
 export default (
     $ref: HTMLElement,
     $slides: HTMLElement,
@@ -34,7 +55,8 @@ export default (
         visibleSlides,
         offsetLeft,
         step,
-        isVertical
+        isVertical,
+        isInfinite
     } = store.getState();
 
     let targetSlide = currentSlide;
@@ -57,9 +79,7 @@ export default (
     }
 
     const translateProp = isVertical ? 'translateY' : 'translateX';
+    const translateValue = getTransformPixels(currentSlide, step, visibleSlides, totalSlides, offsetLeft, innerSize, isInfinite);
 
-    const sliderSize = innerSize / visibleSlides;
-    $slides.style.transform = totalSlides > visibleSlides
-        ? `${translateProp}(${(-(sliderSize * currentSlide) - sliderSize * step) + (offsetLeft * sliderSize)}px)`
-        : `${translateProp}(0)`;
+    $slides.style.transform = `${translateProp}(${translateValue}px)`;
 };

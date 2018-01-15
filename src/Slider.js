@@ -40,8 +40,8 @@ const _initialState: SliderState = {
     offsetLeft: 0,
     isNextDisabled: false,
     isPrevDisabled: false,
-    isSlidingDisabled: false,
-    isVertical: false
+    isVertical: false,
+    isInfinite: false
 };
 
 /**
@@ -87,7 +87,8 @@ export default class Slider {
         }
 
         const totalSlides = _(this).$slides.children.length;
-        const isSlidingDisabled = totalSlides <= visibleSlides;
+        const isNextDisabled = totalSlides <= visibleSlides;
+        const isPrevDisabled = !options.infinite;
 
         const initialState = {
             ..._initialState,
@@ -96,8 +97,10 @@ export default class Slider {
             visibleSlides,
             step,
             offsetLeft,
-            isSlidingDisabled,
-            isVertical
+            isVertical,
+            isPrevDisabled,
+            isNextDisabled,
+            isInfinite: options.infinite
         };
 
         // Create the store holding the internal state and setup the slider
@@ -112,7 +115,7 @@ export default class Slider {
         if (_(this).$arrowLeft) {
             _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
 
-            if (isSlidingDisabled) {
+            if (isPrevDisabled) {
                 _(this).$arrowLeft.style.visibility = 'hidden';
             }
         }
@@ -121,7 +124,7 @@ export default class Slider {
         if (_(this).$arrowRight) {
             _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
 
-            if (isSlidingDisabled) {
+            if (isNextDisabled) {
                 _(this).$arrowRight.style.visibility = 'hidden';
             }
         }
@@ -133,7 +136,7 @@ export default class Slider {
         ));
 
         // Swipe to a different slide, based on the direction the user swipes in
-        if (!isSlidingDisabled) {
+        if (!isNextDisabled) {
             handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
                 switch (direction) {
                     case 'left':
@@ -249,7 +252,8 @@ export default class Slider {
             innerSize,
             visibleSlides,
             step,
-            isSlidingDisabled
+            isNextDisabled,
+            isPrevDisabled
         } = store.getState();
 
         // Resize the slider, if the innerSize has changed
@@ -265,14 +269,22 @@ export default class Slider {
         }
 
         // Toggle arrows, when sliding enables or disables
-        if (isSlidingDisabled !== prevState.isSlidingDisabled) {
-            if (_(this).$arrowLeft) {
-                _(this).$arrowLeft.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
-            }
+        // if (isSlidingDisabled !== prevState.isSlidingDisabled) {
+        //     if (_(this).$arrowLeft) {
+        //         _(this).$arrowLeft.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
+        //     }
+        //
+        //     if (_(this).$arrowRight) {
+        //         _(this).$arrowRight.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
+        //     }
+        // }
 
-            if (_(this).$arrowRight) {
-                _(this).$arrowRight.style.visibility = isSlidingDisabled ? 'hidden' : 'visible';
-            }
+        if (_(this).$arrowLeft && isPrevDisabled !== prevState.isPrevDisabled) {
+            _(this).$arrowLeft.style.visibility = isPrevDisabled ? 'hidden' : 'visible';
+        }
+
+        if (_(this).$arrowRight && isNextDisabled !== prevState.isNextDisabled) {
+            _(this).$arrowRight.style.visibility = isNextDisabled ? 'hidden' : 'visible';
         }
 
         // Trigger the sliding animation, if the slide has changed

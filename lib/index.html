@@ -15,6 +15,7 @@
             border: 1px solid black;
             height: 600px;
             display: inline-block;
+            margin-bottom: 20px;
         }
 
         .product {
@@ -40,6 +41,32 @@
 
 <div class="container">
     <div class="sm-slider sm-slider--vertical"
+         data-sm-slider='{ "visibleSlides": 3, "step": 1, "infinite": true }'>
+        <div class="arrow-left">L</div>
+        <div class="slides-wrapper">
+            <div class="slides">
+                <div class="slide">
+                    <div class="product"><img
+                            src="http://via.placeholder.com/400x400?text=Slide%201"
+                            alt="">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="product"><img
+                            src="http://via.placeholder.com/400x400?text=Slide%202"
+                            alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="arrow-right">R</div>
+        <!--<div class="dot-nav"></div>-->
+    </div>
+</div>
+
+<div class="container-2">
+    <div class="sm-slider"
          data-sm-slider='{ "visibleSlides": 3, "step": 1, "infinite": true }'>
         <div class="arrow-left">L</div>
         <div class="slides-wrapper">
