@@ -88,7 +88,7 @@ export default class Slider {
 
         const totalSlides = _(this).$slides.children.length;
         const isNextDisabled = totalSlides <= visibleSlides;
-        const isPrevDisabled = !options.infinite;
+        const isPrevDisabled = !options.infinite || totalSlides <= visibleSlides;
 
         const initialState = {
             ..._initialState,
