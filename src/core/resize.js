@@ -14,6 +14,6 @@ export default (
     slide($ref, $slides, store, true);
 
     Array.prototype.forEach.call($slides.children, ($slide) => {
-        $slide.style[sizeAttribute] = `${innerSize / visibleSlides}px`;
+        $slide.style[sizeAttribute] = `${Math.floor(innerSize / visibleSlides)}px`;
     });
 };
