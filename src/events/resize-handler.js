@@ -12,17 +12,18 @@ export default (
     $arrowLeft: ?HTMLElement,
     $arrowRight: ?HTMLElement
 ) => {
-    const { totalSlides, isVertical } = store.getState();
+    const { totalSlides, isVertical, currentSlide, isInfinite } = store.getState();
     const { visibleSlides, step } = getBreakpointOptions(options, window.innerWidth);
     const innerSize = getInnerSize($slider, $arrowLeft, $arrowRight, isVertical);
 
-    const isSlidingDisabled = totalSlides < visibleSlides;
+    const isPrevDisabled = currentSlide === 0 && !isInfinite;
+    const isNextDisabled = totalSlides <= visibleSlides || currentSlide + visibleSlides === totalSlides;
 
     store.setState(prevState => ({
         innerSize,
         visibleSlides,
         step,
-        isNextDisabled: isSlidingDisabled,
-        isPrevDisabled: isSlidingDisabled
+        isNextDisabled,
+        isPrevDisabled
     }));
 }
