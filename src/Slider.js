@@ -19,6 +19,7 @@ import handleSwipe from './events/swipe-handler';
 import clean from './core/clean';
 import configure from './core/configure';
 import createNavigation, { updateNavigation } from './core/navigation';
+import createTextNavigation, { updateTextNavigation } from './core/textNavigation';
 import initSlides from './core/initSlides';
 import getBreakpointOptions from './utils/get-breakpoint-options';
 
@@ -73,6 +74,7 @@ export default class Slider {
         _(this).$arrowLeft = _(this).$ref.querySelector('.arrow-left');
         _(this).$arrowRight = _(this).$ref.querySelector('.arrow-right');
         _(this).$navigation = _(this).$ref.querySelector('.dot-nav');
+        _(this).$textNavigations = _(this).$ref.querySelectorAll('.text-nav');
 
         if (!_(this).$slides || !_(this).$slides.children.length) {
             throw errors.NO_CHILDREN;
@@ -112,6 +114,9 @@ export default class Slider {
 
         // Initialize the dot navigation
         _(this).$navigationDots = createNavigation(_(this).$navigation, _(this).store);
+
+        // Initialize the text navigation
+        _(this).$textDots = createTextNavigation(_(this).$textNavigations,_(this).store, _(this).$slides);
 
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
@@ -283,6 +288,10 @@ export default class Slider {
             slide(_(this).$ref, $slides, store);
             if (_(this).$navigationDots) {
                 updateNavigation(_(this).$navigationDots, currentSlide, _(this).store);
+            }
+
+            if (_(this).$textDots) {
+                updateTextNavigation(_(this).$textDots, currentSlide, _(this).$slides);
             }
         }
     };

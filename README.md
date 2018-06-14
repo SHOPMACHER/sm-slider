@@ -148,6 +148,39 @@ class into your DOM.
 </div>
 ```
 
+### Text Navigation
+The slider supports a text navigation that displays which slide you are 
+currently on with a custom text. To enable it, simply insert an element with the `text-nav-wrapper`
+class into your DOM. As children of this element you should insert elements with the `text-nav` class
+and a  `data-sm-slider-ref` Attribute.
+To make a reference to the slide you should insert a `data-sm-slider-hash` Attribute 
+with the same value as the `data-sm-slider-ref` Attribute to the slides you want to reference on.
+```html
+<div class="sm-slider" data-sm-slider='{}'>
+    <div class="arrow-left"><</div>
+    <div class="slides-wrapper">
+        <div class="slides">
+            <div class="slide" data-sm-slider-hash="zero"></div>
+            <div class="slide" data-sm-slider-hash="one">
+                <div>
+                    <img src="//placehold.it/1180x500">
+                </div>
+            </div>
+            <div class="slide" data-sm-slider-hash="two">
+                <img src="//placehold.it/1180x400">
+            </div>
+        </div>
+    </div>
+    <div class="arrow-right"><</div>
+    <!--<div class="dot-nav"></div>-->
+    <div class="text-nav-wrapper">
+        <a class="text-nav" data-sm-slider-ref="zero">Slide 0</a>
+        <a class="text-nav" data-sm-slider-ref="one">Slide 1</a>
+        <a class="text-nav" data-sm-slider-ref="two">Slide 2</a>
+    </div>
+</div>
+```
+
 ### Global initialization
 You can initialize all sliders on a page, by using
 ```javascript
