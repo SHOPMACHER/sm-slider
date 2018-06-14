@@ -19,6 +19,7 @@ import handleSwipe from './events/swipe-handler';
 import clean from './core/clean';
 import configure from './core/configure';
 import createNavigation, { updateNavigation } from './core/navigation';
+import initSlides from './core/initSlides';
 import getBreakpointOptions from './utils/get-breakpoint-options';
 
 const _ = new Private();
@@ -28,7 +29,8 @@ const _defaultOptions: SliderOptions = {
     visibleSlides: 1,
     step: 1,
     offsetLeft: 0,
-    autoplay: 0
+    autoplay: 0,
+    showEmptySlides: true
 };
 
 const _initialState: SliderState = {
@@ -67,7 +69,7 @@ export default class Slider {
             ..._defaultOptions,
             ...options
         };
-        _(this).$slides = _(this).$ref.querySelector('.slides');
+        _(this).$slides = initSlides(_(this).$ref.querySelector('.slides'), _(this).options);
         _(this).$arrowLeft = _(this).$ref.querySelector('.arrow-left');
         _(this).$arrowRight = _(this).$ref.querySelector('.arrow-right');
         _(this).$navigation = _(this).$ref.querySelector('.dot-nav');
