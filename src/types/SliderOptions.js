@@ -5,7 +5,8 @@ export type SliderOptions = {
     step: number,
     offsetLeft: number,
     autoplay?: number,
-    breakpoints?: {[key: string]: BreakpointOptions}
+    breakpoints?: {[key: string]: BreakpointOptions},
+    showEmptySlides?: boolean
 };
 
 export type BreakpointOptions = {
