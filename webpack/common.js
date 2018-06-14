@@ -28,12 +28,6 @@ module.exports = {
                     name: '[path][name].[ext]'
                 }
             }
-        }, {
-            test: /\.(le|c)ss$/,
-            use: ExtractTextWebpackPlugin.extract({
-                fallback: 'style-loader',
-                use: ['css-loader', 'less-loader']
-            })
         }]
     },
     plugins: [
