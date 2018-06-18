@@ -26,7 +26,7 @@ export default (
             return;
         }
 
-        $textNavigation.addEventListener('click', () => slideTo(store, $slide.getAttribute('data-sm-slider-index')));
+        $textNavigation.addEventListener('click', () => slideTo(store, parseInt($slide.getAttribute('data-sm-slider-index'))));
         $navigationElements = $navigationElements.concat($textNavigation);
     });
 
