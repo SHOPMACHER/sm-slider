@@ -121,19 +121,13 @@ export default class Slider {
         // If the left arrow exists, attach the `previous` event to it
         if (_(this).$arrowLeft) {
             _(this).$arrowLeft.addEventListener('click', previous.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
-
-            if (isPrevDisabled) {
-                _(this).$arrowLeft.style.visibility = 'hidden';
-            }
+            _(this).$arrowLeft.style.visibility = isPrevDisabled ? 'hidden' : 'visible';
         }
 
         // If the right arrow exists, attach the `next` event to it.
         if (_(this).$arrowRight) {
             _(this).$arrowRight.addEventListener('click', next.bind(this, _(this).$ref, _(this).$slides, _(this).store, _(this).options, false));
-
-            if (isNextDisabled) {
-                _(this).$arrowRight.style.visibility = 'hidden';
-            }
+            _(this).$arrowRight.style.visibility = isNextDisabled ? 'hidden' : 'visible';
         }
 
         // Resize the slider, whenever the window resizes (i.e. resize, orientation change)
