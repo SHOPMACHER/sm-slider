@@ -4,7 +4,7 @@ const getInnerWidth = (
     $arrowLeft: ?HTMLElement,
     $arrowRight: ?HTMLElement
 ) => {
-    const sliderWidth = $slider.getBoundingClientRect().width;
+    const sliderWidth = $slider.querySelector('.slides-wrapper').getBoundingClientRect().width;
     const arrowLeftWidth = $arrowLeft && !$arrowLeft.classList.contains('inset')
         ? $arrowLeft.getBoundingClientRect().width
         : 0;
@@ -20,7 +20,7 @@ const getInnerHeight = (
     $arrowTop: ?HTMLElement,
     $arrowBottom: ?HTMLElement
 ) => {
-    const sliderHeight = $slider.getBoundingClientRect().height;
+    const sliderHeight = $slider.querySelector('.slides-wrapper').getBoundingClientRect().height;
     const arrowTopHeight = $arrowTop && !$arrowTop.classList.contains('inset')
         ? $arrowTop.getBoundingClientRect().height
         : 0;
