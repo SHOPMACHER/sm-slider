@@ -1,6 +1,6 @@
 {
   "name": "sm-slider",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0-rc.2",
   "description": "A minimalistic, configurable, responsive slider library.",
   "main": "lib/sm-slider.js",
   "module": "es/sm-slider.js",
@@ -14,7 +14,7 @@
   "scripts": {
     "start": "rollup -c",
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,8 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^2.7.2",
     "postcss": "^6.0.11",
+    "postcss-copy": "^7.1.0",
+    "postcss-copy-assets": "^0.3.1",
     "rollup": "^0.67.1",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
