@@ -186,6 +186,8 @@ export default class Slider {
         _(this).$ref.classList.remove('cloaked');
     }
 
+    resize = () => resize(_(this).$ref, _(this).$slides, _(this).store);
+
     /**
      * Slides to the next slides.
      *
