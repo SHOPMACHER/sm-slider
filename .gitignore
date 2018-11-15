@@ -7,3 +7,8 @@ node_modules
 # OS
 .thumbsdb
 .DS_Store
+
+# Project
+dist
+lib
+es
