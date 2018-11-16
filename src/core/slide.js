@@ -13,14 +13,14 @@ function transitionEnd(
     $slides.classList.remove('animatable');
 
     if (currentSlide === totalSlides || currentSlide < 0) {
-        store.setState(prevState => ({
+        store.setState(() => ({
             currentSlide: targetSlide,
             animate: false
         }));
     }
 }
 
-function getTransformPixels(
+function getTransform(
     currentSlide: number,
     step: number,
     visibleSlides: number,
@@ -33,12 +33,13 @@ function getTransformPixels(
         return 0;
     }
 
-    const slideSize = innerSize / visibleSlides;
+    const slideSize = 100 / visibleSlides;
+
     const indentOffset = offset * slideSize;
     const stepOffset = isInifinite ? slideSize * step : 0;
     const currentSlideOffset = slideSize * currentSlide;
 
-    return -(currentSlideOffset + stepOffset) + indentOffset;
+    return -(currentSlideOffset + stepOffset + indentOffset);
 }
 
 export default (
@@ -79,7 +80,7 @@ export default (
     }
 
     const translateProp = isVertical ? 'translateY' : 'translateX';
-    const translateValue = getTransformPixels(currentSlide, step, visibleSlides, totalSlides, offsetLeft, innerSize, isInfinite);
+    const translateValue = getTransform(currentSlide, step, visibleSlides, totalSlides, offsetLeft, innerSize, isInfinite);
 
-    $slides.style.transform = `${translateProp}(${translateValue}px)`;
+    $slides.style.transform = `${translateProp}(${translateValue}%)`;
 };

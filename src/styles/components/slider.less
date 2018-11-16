@@ -1,22 +1,19 @@
 @import '../vars';
 
 .sm-slider {
-  position: relative;
   display: flex;
-  align-items: stretch;
-  justify-content: center;
 
   &.cloaked {
     visibility: hidden;
   }
 
   .slides-wrapper {
-    display: flex;
-    flex: 1;
+    flex-grow: 1;
     overflow: hidden;
 
     .slides {
       display: flex;
+      flex-grow: 1;
 
       &.animatable {
         will-change: transform;
@@ -25,7 +22,9 @@
       }
 
       .slide {
-        flex: 1 0 auto;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 50%;
         pointer-events: none;
 
         * {
