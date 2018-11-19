@@ -8,7 +8,7 @@ export default (store: Store<SliderState>, slide: number, animate: boolean = tru
     const isPrevDisabled = !isInfinite && slide === 0 || totalSlides <= visibleSlides;
     const isNextDisabled = !isInfinite && slide === totalSlides - visibleSlides || totalSlides <= visibleSlides;
 
-    store.setState(prevState => ({
+    store.setState(() => ({
         currentSlide: slide,
         isNextDisabled,
         isPrevDisabled,

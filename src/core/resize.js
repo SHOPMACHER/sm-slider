@@ -8,8 +8,7 @@ export default (
     $slides: HTMLElement,
     store: Store<SliderState>
 ) => {
-    const { innerSize, visibleSlides, isVertical } = store.getState();
-    const sizeAttribute = isVertical ? 'height' : 'width';
+    const { visibleSlides } = store.getState();
 
     slide($ref, $slides, store, true);
 

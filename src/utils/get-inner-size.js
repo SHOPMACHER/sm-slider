@@ -1,34 +1,14 @@
 // @flow
 const getInnerWidth = (
-    $slider: HTMLElement,
-    $arrowLeft: ?HTMLElement,
-    $arrowRight: ?HTMLElement
+    $slider: HTMLElement
 ) => {
-    const sliderWidth = $slider.querySelector('.slides-wrapper').getBoundingClientRect().width;
-    // const arrowLeftWidth = $arrowLeft && !$arrowLeft.classList.contains('inset')
-    //     ? $arrowLeft.getBoundingClientRect().width
-    //     : 0;
-    // const arrowRightWidth = $arrowRight && !$arrowRight.classList.contains('inset')
-    //     ? $arrowRight.getBoundingClientRect().width
-    //     : 0;
-
-    return sliderWidth;
+    return $slider.querySelector('.slides-wrapper').getBoundingClientRect().width;
 };
 
 const getInnerHeight = (
-    $slider: HTMLElement,
-    $arrowTop: ?HTMLElement,
-    $arrowBottom: ?HTMLElement
+    $slider: HTMLElement
 ) => {
-    const sliderHeight = $slider.querySelector('.slides-wrapper').getBoundingClientRect().height;
-    // const arrowTopHeight = $arrowTop && !$arrowTop.classList.contains('inset')
-    //     ? $arrowTop.getBoundingClientRect().height
-    //     : 0;
-    // const arrowBottomHeight = $arrowBottom && !$arrowBottom.classList.contains('inset')
-    //     ? $arrowBottom.getBoundingClientRect().height
-    //     : 0;
-
-    return sliderHeight;
+    return $slider.querySelector('.slides-wrapper').getBoundingClientRect().height;
 };
 
 export default (
@@ -38,6 +18,6 @@ export default (
     isVertical: boolean = false
 ): number => {
     return isVertical
-        ? getInnerHeight($slider, $arrowLeft, $arrowRight)
-        : getInnerWidth($slider, $arrowLeft, $arrowRight);
+        ? getInnerHeight($slider)
+        : getInnerWidth($slider);
 }
