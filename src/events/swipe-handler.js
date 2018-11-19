@@ -49,7 +49,7 @@ export default (
         distY = touch.pageY - startY;
 
         if (translate !== null && translate !== undefined) {
-            $touchTarget.style.transform = `translateX(${translate + distX}px)`;
+            $touchTarget.style.transform = `translateX(${translate + distX * 0.5}%)`;
         }
     }, { passive: true });
 
@@ -60,7 +60,7 @@ export default (
             swipeDirection = (distY < 0) ? 'up' : 'down';
         } else {
             $touchTarget.classList.add('animatable');
-            $touchTarget.style.transform = `translateX(${translate}px)`;
+            $touchTarget.style.transform = `translateX(${translate}%)`;
         }
 
         distX = 0;
