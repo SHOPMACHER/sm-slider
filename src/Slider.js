@@ -138,7 +138,7 @@ export default class Slider {
         ));
 
         // Swipe to a different slide, based on the direction the user swipes in
-        if (!isNextDisabled && !_(this).swipeDisabled) {
+        if (!isNextDisabled && !_(this).options.swipeDisabled) {
             handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
                 switch (direction) {
                     case 'left':
