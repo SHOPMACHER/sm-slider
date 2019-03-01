@@ -216,7 +216,8 @@ attribute or the contructor can consist of the following options:
 | autoplay      | Time in milliseconds for the slides to switch automatically   | number   | 0             |            |
 | breakpoints   | See [Responsiveness](#responsiveness)                     | Object   | undefined     |            |
 | offsetLet     | Value between 0 and 1 that controls, how much of the last slide is visible on the left. | number | 0 | yes |
-| showEmptySlides | False, if empty slides should be hidden                     | boolean   | true 
+| showEmptySlides | False, if empty slides should be hidden                     | boolean   | true
+| disabledSwipe | True, if touch swiping should be disabled                      | boolean   | false 
 
 ### Responsiveness
 smSlider is built to fit different device sizes using the `breakpoints` option.
