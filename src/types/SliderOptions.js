@@ -7,7 +7,7 @@ export type SliderOptions = {
     autoplay?: number,
     breakpoints?: {[key: string]: BreakpointOptions},
     showEmptySlides?: boolean,
-    swipeDisabled?:boolean
+    disabledSwipe?:boolean
 };
 
 export type BreakpointOptions = {

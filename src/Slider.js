@@ -32,7 +32,7 @@ const _defaultOptions: SliderOptions = {
     offsetLeft: 0,
     autoplay: 0,
     showEmptySlides: true,
-    swipeDisabled: false,
+    disabledSwipe: false,
 };
 
 const _initialState: SliderState = {
@@ -138,7 +138,7 @@ export default class Slider {
         ));
 
         // Swipe to a different slide, based on the direction the user swipes in
-        if (!isNextDisabled && !_(this).options.swipeDisabled) {
+        if (!isNextDisabled && !_(this).options.disabledSwipe) {
             handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
                 switch (direction) {
                     case 'left':
