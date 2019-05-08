@@ -20,7 +20,7 @@ export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderStat
         }));
     }
 
-    !options.infinite && currentSlide - slideOffset <= 0 ? _slideTo = 0 : _slideTo = currentSlide - slideOffset;
+    _slideTo = !options.infinite && currentSlide - slideOffset <= 0 ? 0 : currentSlide - slideOffset;
 
     requestAnimationFrame(() => slideTo(store, _slideTo));
 }

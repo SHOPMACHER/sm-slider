@@ -71,7 +71,7 @@ export default (
             }
 
 
-            const slideWidth = $touchTarget.children[0].style.width.split('px')[0];
+            const slideWidth = +window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
             _slideTo = Math.abs(Math.round((translate + distX) / slideWidth));
 
             if (options.infinite) {
