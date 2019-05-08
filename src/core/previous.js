@@ -8,6 +8,8 @@ import slideTo from './slide-to';
 export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderState>, options: SliderOptions, isEventTrigger: boolean) => {
     const { currentSlide, step } = store.getState();
 
+    let _slideTo = Number;
+
     let slideOffset = currentSlide !== 0 ? (currentSlide % step || step) : step;
 
     if (!isEventTrigger) {
@@ -18,5 +20,7 @@ export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderStat
         }));
     }
 
-    requestAnimationFrame(() => slideTo(store, currentSlide - slideOffset));
+    !options.infinite && currentSlide - slideOffset <= 0 ? _slideTo = 0 : _slideTo = currentSlide - slideOffset;
+
+    requestAnimationFrame(() => slideTo(store, _slideTo));
 }

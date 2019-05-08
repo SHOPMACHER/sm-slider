@@ -142,7 +142,13 @@ export default class Slider {
             handleSwipe(_(this).$slides, _(this).store, _(this).options, (direction: SwipeDirection) => {
                 switch (direction) {
                     case 'left':
+                        _(this).store.setState(prevState => ({
+                            step: 1,
+                        }));
                         next(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
+                        _(this).store.setState(prevState => ({
+                            step: _(this).options.step || 1,
+                        }));
                         break;
                     case 'right':
                         previous(_(this).$ref, _(this).$slides, _(this).store, _(this).options, false);
