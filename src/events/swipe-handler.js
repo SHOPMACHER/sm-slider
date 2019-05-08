@@ -29,6 +29,7 @@ export default (
     let threshold = 50; //required min distance traveled to be considered swipe
     const restraint = 100; // maximum distance allowed at the same time in perpendicular direction
     let _slideTo = 0;
+    let clientY = 0;
 
     if (!store.getState().isVertical) {
         $touchTarget.addEventListener('touchstart', (event: TouchEvent) => {
@@ -52,10 +53,16 @@ export default (
 
             distX = touch.pageX - startX;
             distY = touch.pageY - startY;
+            setTimeout(() => {
+                clientY = touch.clientY;
+            }, 10);
 
             if (translate !== null && translate !== undefined) {
                 $touchTarget.style.transform = `translateX(${translate + distX}px)`;
             }
+
+            touch.clientY < clientY ?  window.scrollTo(0, pageYOffset + 1) :  window.scrollTo(0, pageYOffset - 1);
+
         }, { passive: true });
 
         $touchTarget.addEventListener('touchend', (event: TouchEvent) => {
@@ -63,15 +70,13 @@ export default (
                 swipeDirection = (distX < 0) ? 'left' : 'right';
             } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
                 swipeDirection = (distY < 0) ? 'up' : 'down';
-                window.scrollTo(0, pageYOffset);
             } else {
                 $touchTarget.classList.add('animatable');
                 $touchTarget.style.transform = `translateX(${translate}px)`;
-                window.scrollTo(0, pageYOffset);
             }
 
 
-            const slideWidth = +window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
+            const slideWidth = window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
             _slideTo = Math.abs(Math.round((translate + distX) / slideWidth));
 
             if (options.infinite) {
