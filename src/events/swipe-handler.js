@@ -28,7 +28,7 @@ export default (
     let translate: number;
     let threshold = 50; //required min distance traveled to be considered swipe
     const restraint = 100; // maximum distance allowed at the same time in perpendicular direction
-    let _slideTo = Number;
+    let _slideTo = 0;
 
     if (!store.getState().isVertical) {
         $touchTarget.addEventListener('touchstart', (event: TouchEvent) => {
@@ -63,9 +63,11 @@ export default (
                 swipeDirection = (distX < 0) ? 'left' : 'right';
             } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
                 swipeDirection = (distY < 0) ? 'up' : 'down';
+                window.scrollTo(0, pageYOffset + 3);
             } else {
                 $touchTarget.classList.add('animatable');
                 $touchTarget.style.transform = `translateX(${translate}px)`;
+                window.scrollTo(0, pageYOffset + 3);
             }
 
 

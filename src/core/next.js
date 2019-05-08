@@ -7,7 +7,7 @@ import slideTo from './slide-to';
 
 export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderState>, options: SliderOptions, isEventTrigger: boolean) => {
     const { currentSlide, totalSlides, step, visibleSlides, isInfinite } = store.getState();
-    let _slideTo = Number;
+    let _slideTo = 0;
 
     let slideOffset = currentSlide + step > totalSlides ? totalSlides - currentSlide : step;
 
