@@ -63,11 +63,11 @@ export default (
                 swipeDirection = (distX < 0) ? 'left' : 'right';
             } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
                 swipeDirection = (distY < 0) ? 'up' : 'down';
-                window.scrollTo(0, pageYOffset + 3);
+                window.scrollTo(0, pageYOffset);
             } else {
                 $touchTarget.classList.add('animatable');
                 $touchTarget.style.transform = `translateX(${translate}px)`;
-                window.scrollTo(0, pageYOffset + 3);
+                window.scrollTo(0, pageYOffset);
             }
 
 
