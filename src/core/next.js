@@ -6,7 +6,8 @@ import type { SliderOptions } from '../types/SliderOptions';
 import slideTo from './slide-to';
 
 export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderState>, options: SliderOptions, isEventTrigger: boolean) => {
-    const { currentSlide, totalSlides, step } = store.getState();
+    const { currentSlide, totalSlides, step, visibleSlides, isInfinite } = store.getState();
+    let _slideTo = 0;
 
     let slideOffset = currentSlide + step > totalSlides ? totalSlides - currentSlide : step;
 
@@ -18,5 +19,11 @@ export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderStat
         }));
     }
 
-    requestAnimationFrame(() => slideTo(store, currentSlide + slideOffset));
+    _slideTo = currentSlide + slideOffset ;
+
+    if (!isInfinite && _slideTo >= totalSlides - visibleSlides) {
+        _slideTo = totalSlides - visibleSlides;
+    }
+
+    requestAnimationFrame(() => slideTo(store,  _slideTo));
 }
