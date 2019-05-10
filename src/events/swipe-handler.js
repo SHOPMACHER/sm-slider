@@ -61,7 +61,7 @@ export default (
                 $touchTarget.style.transform = `translateX(${translate + distX}px)`;
             }
 
-            touch.clientY < clientY ?  window.scrollTo(0, pageYOffset + 1) :  window.scrollTo(0, pageYOffset - 1);
+            touch.clientY < clientY ?  window.scrollTo(0, pageYOffset + 3) :  window.scrollTo(0, pageYOffset - 3);
 
         }, { passive: true });
 
