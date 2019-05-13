@@ -29,7 +29,6 @@ export default (
     let threshold = 50; //required min distance traveled to be considered swipe
     const restraint = 100; // maximum distance allowed at the same time in perpendicular direction
     let _slideTo = 0;
-    let clientY = 0;
 
     if (!store.getState().isVertical) {
         $touchTarget.addEventListener('touchstart', (event: TouchEvent) => {
@@ -53,15 +52,9 @@ export default (
 
             distX = touch.pageX - startX;
             distY = touch.pageY - startY;
-            setTimeout(() => {
-                clientY = touch.clientY;
-            }, 10);
-
             if (translate !== null && translate !== undefined) {
                 $touchTarget.style.transform = `translateX(${translate + distX}px)`;
             }
-
-            touch.clientY < clientY ?  window.scrollTo(0, pageYOffset + 3) :  window.scrollTo(0, pageYOffset - 3);
 
         }, { passive: true });
 
@@ -75,7 +68,6 @@ export default (
                 $touchTarget.style.transform = `translateX(${translate}px)`;
             }
 
-
             const slideWidth = window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
             _slideTo = Math.abs(Math.round((translate + distX) / slideWidth));
 
@@ -83,12 +75,20 @@ export default (
                 _slideTo = Math.abs(Math.round((translate + distX) / slideWidth)) - 1;
             }
 
+            if (distX > 0 && translate >= 0 && (distX + translate) > 0) {
+                _slideTo = 0;
+            }
+
             window.setTimeout(() => {
                 if (options.step > 1 && options.infinite) {
                     _slideTo = _slideTo - options.step + 1;
                 } else if (!options.infinite && _slideTo >= store.getState().totalSlides - store.getState().visibleSlides) {
                     _slideTo = store.getState().totalSlides - store.getState().visibleSlides;
-                    requestAnimationFrame(() => slideTo(store, _slideTo +2));
+                    requestAnimationFrame(() => slideTo(store, _slideTo + 2));
+                }
+
+                if (store.getState().currentSlide === 0 && store.getState().currentSlide === _slideTo) {
+                    slideTo(store, _slideTo + 1);
                 }
 
                 requestAnimationFrame(() => slideTo(store, _slideTo));
