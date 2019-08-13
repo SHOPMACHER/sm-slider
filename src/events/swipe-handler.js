@@ -59,6 +59,10 @@ export default (
         }, { passive: true });
 
         $touchTarget.addEventListener('touchend', (event: TouchEvent) => {
+            if (!distX && !distY) {
+                return;
+            }
+
             if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
                 swipeDirection = (distX < 0) ? 'left' : 'right';
             } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
