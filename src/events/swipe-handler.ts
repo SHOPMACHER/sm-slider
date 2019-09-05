@@ -1,10 +1,8 @@
-// @flow
 import Store from '../utils/Store';
-import type { SwipeDirection } from '../types/SwipeDirection';
-import type { SliderState } from '../types/SliderState';
-import type { SliderOptions } from '../types/SliderOptions';
-
 import slideTo from '../core/slide-to';
+import { SliderState } from '../types/SliderState';
+import { SliderOptions } from '../types/SliderOptions';
+import { SwipeDirection } from '../types/SwipeDirection';
 
 /**
  * touch events for swipe elements
@@ -18,8 +16,8 @@ export default (
     $touchTarget: HTMLElement,
     store: Store<SliderState>,
     options: SliderOptions,
-    handleSwipe: (swipeDirection: SwipeDirection) => void
-) => {
+    handleSwipe: (swipeDirection: SwipeDirection) => void,
+): void => {
     let swipeDirection: SwipeDirection;
     let startX: number;
     let startY: number;
@@ -34,7 +32,7 @@ export default (
         $touchTarget.addEventListener('touchstart', (event: TouchEvent) => {
             const touch = event.changedTouches[0];
 
-            swipeDirection = 'none';
+            swipeDirection = SwipeDirection.NONE;
             threshold = (store.getState().innerSize / options.visibleSlides) / 5;
             startX = touch.pageX;
             startY = touch.pageY;
@@ -64,15 +62,24 @@ export default (
             }
 
             if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
-                swipeDirection = (distX < 0) ? 'left' : 'right';
+                swipeDirection = (distX < 0)
+                    ? SwipeDirection.LEFT
+                    : SwipeDirection.RIGHT;
             } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
-                swipeDirection = (distY < 0) ? 'up' : 'down';
+                swipeDirection = (distY < 0)
+                    ? SwipeDirection.UP
+                    : SwipeDirection.DOWN;
             } else {
                 $touchTarget.classList.add('animatable');
                 $touchTarget.style.transform = `translateX(${translate}px)`;
             }
 
-            const slideWidth = window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
+            const { width } = getComputedStyle($touchTarget.children[0]);
+            if (!width) {
+                return;
+            }
+
+            const slideWidth = parseInt(width.split('px')[0], 10);
             _slideTo = Math.abs(Math.round((translate + distX) / slideWidth));
 
             if (options.infinite) {

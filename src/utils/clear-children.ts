@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * Removes all children from a node.
  *

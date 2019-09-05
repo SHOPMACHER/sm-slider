@@ -1,8 +1,9 @@
-// @flow
+import { Nullable } from '../types/Nullable';
+
 const getInnerWidth = (
-    $slider: HTMLElement,
-    $arrowLeft: ?HTMLElement,
-    $arrowRight: ?HTMLElement
+    $slider: Element,
+    $arrowLeft: Nullable<Element>,
+    $arrowRight: Nullable<Element>,
 ) => {
     const sliderWidth = $slider.getBoundingClientRect().width;
     const arrowLeftWidth = $arrowLeft && !$arrowLeft.classList.contains('inset')
@@ -16,9 +17,9 @@ const getInnerWidth = (
 };
 
 const getInnerHeight = (
-    $slider: HTMLElement,
-    $arrowTop: ?HTMLElement,
-    $arrowBottom: ?HTMLElement
+    $slider: Element,
+    $arrowTop: Nullable<Element>,
+    $arrowBottom: Nullable<Element>,
 ) => {
     const sliderHeight = $slider.getBoundingClientRect().height;
     const arrowTopHeight = $arrowTop && !$arrowTop.classList.contains('inset')
@@ -32,10 +33,10 @@ const getInnerHeight = (
 };
 
 export default (
-    $slider: HTMLElement,
-    $arrowLeft: ?HTMLElement,
-    $arrowRight: ?HTMLElement,
-    isVertical: boolean = false
+    $slider: Element,
+    $arrowLeft: Nullable<Element>,
+    $arrowRight: Nullable<Element>,
+    isVertical: boolean = false,
 ): number => {
     return isVertical
         ? getInnerHeight($slider, $arrowLeft, $arrowRight)

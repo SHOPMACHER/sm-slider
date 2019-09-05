@@ -1,5 +1,4 @@
-// @flow
-import type { BreakpointOptions, SliderOptions } from "../types/SliderOptions";
+import { BreakpointOptions, SliderOptions } from '../types/SliderOptions';
 
 export default (options: SliderOptions, innerSize: number): BreakpointOptions => {
     let { visibleSlides, step, offsetLeft } = options;

@@ -1,4 +1,3 @@
-// @flow
 const PREFIX = '[smSlider]';
 
 /**
@@ -7,7 +6,10 @@ const PREFIX = '[smSlider]';
  * @param message Error message
  * @param T Error class
  */
-const createErrorMessage = (message, T = Error) => new T(`${PREFIX} ${message}`);
+const createErrorMessage = (
+    message: string,
+    T = Error
+) => new T(`${PREFIX} ${message}`);
 
 export const INVALID_OPTIONS = createErrorMessage(
     'Slider could not be initialized with the provided options. Please check that you provided valid JSON.'

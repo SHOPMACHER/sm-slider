@@ -4,9 +4,9 @@ import { SliderOptions } from '../types/SliderOptions';
  * Remove empty slides im "showEmptySlides" is true
  */
 export default (
-    $slides: HTMLElement,
+    $slides: Element,
     options: SliderOptions
-): HTMLElement => {
+): Element => {
     if (options.showEmptySlides) {
         return $slides;
     }
