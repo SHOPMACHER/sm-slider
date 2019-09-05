@@ -1,19 +1,18 @@
-// @flow
 import Store from '../utils/Store';
-import type { SliderState } from '../types/SliderState';
 import once from '../utils/event-listener-once';
+import { SliderState } from '../types/SliderState';
 
 function transitionEnd(
     store: Store<SliderState>,
     $slides: HTMLElement,
     currentSlide: number,
     totalSlides: number,
-    targetSlide: number
-) {
+    targetSlide: number,
+): void {
     $slides.classList.remove('animatable');
 
     if (currentSlide === totalSlides || currentSlide < 0) {
-        store.setState(prevState => ({
+        store.setState(() => ({
             currentSlide: targetSlide,
             animate: false
         }));
@@ -27,15 +26,15 @@ function getTransformPixels(
     totalSlides: number,
     offset: number,
     innerSize: number,
-    isInifinite: boolean
-) {
+    isInfinite: boolean,
+): number {
     if (totalSlides <= visibleSlides) {
         return 0;
     }
 
     const slideSize = innerSize / visibleSlides;
     const indentOffset = offset * slideSize;
-    const stepOffset = isInifinite ? slideSize * step : 0;
+    const stepOffset = isInfinite ? slideSize * step : 0;
     const currentSlideOffset = slideSize * currentSlide;
 
     return -(currentSlideOffset + stepOffset) + indentOffset;
@@ -45,8 +44,8 @@ export default (
     $ref: HTMLElement,
     $slides: HTMLElement,
     store: Store<SliderState>,
-    preventAnimation: boolean = false
-) => {
+    preventAnimation: boolean = false,
+): void => {
     const {
         currentSlide,
         innerSize,
@@ -68,7 +67,18 @@ export default (
 
     if (animate && !preventAnimation) {
         $slides.classList.add('animatable');
-        once($slides, 'transitionend', transitionEnd.bind(undefined, store, $slides, currentSlide, totalSlides, targetSlide));
+        once(
+            $slides,
+            'transitionend',
+            transitionEnd.bind(
+                undefined,
+                store,
+                $slides,
+                currentSlide,
+                totalSlides,
+                targetSlide
+            )
+        );
 
         $ref.dispatchEvent(new CustomEvent('slide', {
             detail: {

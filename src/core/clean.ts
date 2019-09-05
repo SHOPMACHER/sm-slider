@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * Cleans up duplicate slides and indexes other slides.
  */

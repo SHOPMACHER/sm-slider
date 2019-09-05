@@ -1,15 +1,17 @@
-// @flow
-import type { SliderOptions } from '../types/SliderOptions';
+import { SliderOptions } from '../types/SliderOptions';
 
 /**
  * Remove empty slides im "showEmptySlides" is true
  */
-export default ($slides: HTMLElement, options: SliderOptions) => {
+export default (
+    $slides: HTMLElement,
+    options: SliderOptions
+): HTMLElement => {
     if (options.showEmptySlides) {
         return $slides;
     }
 
-    const $children: NodeList<HTMLElement> = $slides.querySelectorAll('.slide');
+    const $children: NodeList = $slides.querySelectorAll('.slide');
 
     Array.prototype.forEach.call($children, ($slide: HTMLElement) => {
         if ($slide.innerHTML === '') {

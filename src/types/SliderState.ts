@@ -1,4 +1,3 @@
-// @flow
 export type SliderState = {
     currentSlide: number,
     totalSlides: number,
@@ -9,5 +8,6 @@ export type SliderState = {
     isPrevDisabled: boolean,
     isNextDisabled: boolean,
     isVertical: boolean,
-    isInfinite: boolean
+    isInfinite: boolean,
+    animate: boolean,
 };

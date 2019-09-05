@@ -1,11 +1,16 @@
-// @flow
 import Store from '../utils/Store';
-import type { SliderState } from '../types/SliderState';
-import type { SliderOptions } from '../types/SliderOptions';
 
 import slideTo from './slide-to';
+import { SliderState } from '../types/SliderState';
+import { SliderOptions } from '../types/SliderOptions';
 
-export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderState>, options: SliderOptions, isEventTrigger: boolean) => {
+export default (
+    $ref: HTMLElement,
+    $slides: HTMLElement,
+    store: Store<SliderState>,
+    options: SliderOptions,
+    isEventTrigger: boolean,
+): void => {
     const { currentSlide, step } = store.getState();
 
     let _slideTo = 0;
@@ -20,7 +25,9 @@ export default ($ref: HTMLElement, $slides: HTMLElement, store: Store<SliderStat
         }));
     }
 
-    _slideTo = !options.infinite && currentSlide - slideOffset <= 0 ? 0 : currentSlide - slideOffset;
+    _slideTo = !options.infinite && currentSlide - slideOffset <= 0
+        ? 0
+        : currentSlide - slideOffset;
 
     requestAnimationFrame(() => slideTo(store, _slideTo));
 }

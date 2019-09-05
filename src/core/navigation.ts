@@ -1,11 +1,13 @@
-// @flow
 import Store from '../utils/Store';
-import type { SliderState } from '../types/SliderState';
 
 import clearChildren from '../utils/clear-children';
 import slideTo from './slide-to';
+import { SliderState } from '../types/SliderState';
 
-export default ($navigation: HTMLElement, store: Store<SliderState>): ?Array<HTMLElement> => {
+export default (
+    $navigation: HTMLElement,
+    store: Store<SliderState>,
+): HTMLElement[] | null => {
     const { totalSlides, step } = store.getState();
 
     if (!clearChildren($navigation)) {
@@ -28,7 +30,11 @@ export default ($navigation: HTMLElement, store: Store<SliderState>): ?Array<HTM
     return $dots;
 };
 
-export const updateNavigation = ($dots: Array<HTMLElement>, activeIndex: number, store: Store<SliderState>) => {
+export const updateNavigation = (
+    $dots: Array<HTMLElement>,
+    activeIndex: number,
+    store: Store<SliderState>
+): void => {
     const { step } = store.getState();
     const activePageIndex = Math.floor(activeIndex / step);
 

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "module": "umd"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
