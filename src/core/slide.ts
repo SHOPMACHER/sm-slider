@@ -70,14 +70,13 @@ export default (
         once(
             $slides,
             'transitionend',
-            transitionEnd.bind(
-                undefined,
+            () => transitionEnd(
                 store,
                 $slides,
                 currentSlide,
                 totalSlides,
-                targetSlide
-            )
+                targetSlide,
+            ),
         );
 
         $ref.dispatchEvent(new CustomEvent('slide', {
