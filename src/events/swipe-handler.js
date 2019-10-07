@@ -73,13 +73,19 @@ export default (
             }
 
             const slideWidth = window.getComputedStyle($touchTarget.children[0]).width.split('px')[0];
-            _slideTo = Math.abs(Math.round((translate + distX) / slideWidth));
+            let calcDistX;
+            if (distX < 0) {
+                calcDistX = -(parseInt(slideWidth));
+            } else {
+                calcDistX = parseInt(slideWidth);
+            }
+            _slideTo = Math.abs(Math.round((translate + calcDistX) / slideWidth));
 
             if (options.infinite) {
-                _slideTo = Math.abs(Math.round((translate + distX) / slideWidth)) - 1;
+                _slideTo = Math.abs(Math.round((translate + calcDistX) / slideWidth)) - 1;
             }
 
-            if (distX > 0 && translate >= 0 && (distX + translate) > 0) {
+            if (calcDistX > 0 && translate >= 0 && (calcDistX + translate) > 0) {
                 _slideTo = 0;
             }
 
