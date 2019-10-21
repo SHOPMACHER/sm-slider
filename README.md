@@ -1,7 +1,7 @@
 # smSlider
 smSlider is a library for creating responsive and slick sliders
 that serve whatever content you want them to. The general philosophy is
-to provide a flexible library in which to user can handle the styling
+to provide a flexible library in which the user can handle the styling
 mostly by itself. This makes it easy, to customize the slider without
 having to override a lot of library styles.
 Basically the only styling provided is done for
@@ -153,7 +153,7 @@ The slider supports a text navigation that displays which slide you are
 currently on with a custom text. To enable it, simply insert an element with the `text-nav-wrapper`
 class into your DOM. As children of this element you should insert elements with the `text-nav` class
 and a  `data-sm-slider-ref` Attribute.
-To make a reference to the slide you should insert a `data-sm-slider-hash` Attribute 
+To create a reference to the slide you should insert a `data-sm-slider-hash` Attribute 
 with the same value as the `data-sm-slider-ref` Attribute to the slides you want to reference on.
 ```html
 <div class="sm-slider" data-sm-slider='{}'>
@@ -220,7 +220,7 @@ attribute or the contructor can consist of the following options:
 | disabledSwipe | True, if touch swiping should be disabled                      | boolean   | false 
 
 ### Responsiveness
-smSlider is built to fit different device sizes using the `breakpoints` option.
+`smSlilder` is built to fit different device sizes using the `breakpoints` option.
 The `breakspoints` option consists of a key/value pair that can override
 all default options that have a `yes` in the field for responsiveness in the
 options table above.
@@ -241,17 +241,17 @@ The above configuration will make the slider display 1 slide by default and 2 sl
 the 768px device-width breakpoint (i.e. tablet devices).
 
 ### Vertical slides
-smSlider also supports vertical alignment of slides, instead of the usual horizonal one.
+`smSlilder` also supports vertical alignment of slides, instead of the usual horizonal one.
 In order to transform the slider into a vertical one, the element with the `sm-slider` class
 needs to be assigned the `sm-slider--vertical` class as well.
 
 Please note that for best results, the following cases should apply:
  * The parent of `sm-slider` has either display flex, inline or inline-block
  * The content of the `slide` class has a fixed height
-   * The dynamic height calculation is going to be adressed in the upcoming releases!
+   * The dynamic height calculation is going to be addressed in the upcoming releases!
 
 ### Events
-smSlider uses custom events to both notify the listener of specific actions,
+`smSlilder` uses custom events to both notify the listener of specific actions,
 as well as listening to specific events itself. The following list shows
 the events that are implemented at the moment.
 
