@@ -218,6 +218,7 @@ attribute or the contructor can consist of the following options:
 | offsetLet     | Value between 0 and 1 that controls, how much of the last slide is visible on the left. | number | 0 | yes |
 | showEmptySlides | False, if empty slides should be hidden                     | boolean   | true
 | disabledSwipe | True, if touch swiping should be disabled                      | boolean   | false 
+| activeClass   | Adds an `active` class to the first displayed element in the viewport  | boolean   | false 
 
 ### Responsiveness
 `smSlilder` is built to fit different device sizes using the `breakpoints` option.

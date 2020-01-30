@@ -33,6 +33,7 @@ const _defaultOptions: SliderOptions = {
     autoplay: 0,
     showEmptySlides: true,
     disabledSwipe: false,
+    activeClass: false,
 };
 
 const _initialState: SliderState = {
@@ -45,7 +46,8 @@ const _initialState: SliderState = {
     isNextDisabled: false,
     isPrevDisabled: false,
     isVertical: false,
-    isInfinite: false
+    isInfinite: false,
+    isClassActive: false,
 };
 
 /**
@@ -105,7 +107,9 @@ export default class Slider {
             isVertical,
             isPrevDisabled,
             isNextDisabled,
-            isInfinite: options.infinite
+            isInfinite: options.infinite,
+            isClassActive: _(this).options.activeClass,
+            slidesWrapper: _(this).$slides,
         };
 
         // Create the store holding the internal state and setup the slider
@@ -136,6 +140,12 @@ export default class Slider {
             resizeHandler.bind(this, _(this).$ref, _(this).store, _(this).options, _(this).$arrowLeft, _(this).$arrowRight),
             200
         ));
+
+        // If isClassActive true, add active class to the first displayed element in the viewport
+        if (initialState.isClassActive) {
+            const mainElements = _(this).$slides.querySelectorAll('.slide:not([data-sm-slider-duplicate])');
+            mainElements[0]?.classList.add('active');
+        }
 
         // Swipe to a different slide, based on the direction the user swipes in
         if (!isNextDisabled && !_(this).options.disabledSwipe) {
